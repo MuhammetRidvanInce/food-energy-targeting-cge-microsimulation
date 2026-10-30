@@ -55,6 +55,7 @@ With IPOPT and authorised microdata available, run the following in sequence fro
 
 ```bash
 python 5_simulation/codes/run_simulations.py
+python 5_simulation/codes/income_diagnostics.py
 python 5_simulation/codes/figure_profiles.py
 python 5_simulation/codes/pmt_coverage_sensitivity.py
 python 5_simulation/codes/pmt_coverage_optimization.py
