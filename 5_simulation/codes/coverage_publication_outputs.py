@@ -55,7 +55,7 @@ def framework(tr=False):
                 text = 'Policy comparison → Recipient composition → PMT coverage → Poverty–coverage frontier (epsilon constraint)'
                 artist.set_fontsize(6.1)
             if text.startswith('Fixed real poverty line'):
-                text = 'Fixed real poverty line\nFGT0 · FGT1 · FGT2\nConsumption and inequality\nGDP and investment\nPoverty–coverage frontier'
+                text = 'Fixed real poverty line\nFGT0 · FGT1 · FGT2\nConsumption and\ninequality\nGDP and investment\nPoverty–coverage\nfrontier'
                 artist.set_fontsize(5.9)
             artist.set_text(text)
         save(fig, 'fig1', tr=tr)
