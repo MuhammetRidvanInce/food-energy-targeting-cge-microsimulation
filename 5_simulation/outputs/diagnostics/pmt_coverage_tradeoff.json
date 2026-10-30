@@ -1,0 +1,52 @@
+{
+  "status": "complete",
+  "utc_time": "2026-10-29T09:19:05.911125+00:00",
+  "model_rerun": false,
+  "reference_coverage_pct": 4.305726866645756,
+  "reference_fgt1_pct": 6.674924900986275,
+  "population_million": 84.12967691981244,
+  "shock_fgt1_pct": 8.07265394099,
+  "maximum_shock_to_policy_reduction_pp": 1.3977290400037248,
+  "net_fiscal_cost_billion_tl": 135.45734532350528,
+  "selected_policy_count": 10,
+  "evaluated_curve_points": 156,
+  "finite_difference_intervals": 9,
+  "conditional_intervals": [
+    {
+      "coverage_pct": 20,
+      "fgt1_cost_pp": 0.3721546348444293,
+      "lower95_pp": 0.17448372569624132,
+      "upper95_pp": 0.5965882810315656
+    },
+    {
+      "coverage_pct": 40,
+      "fgt1_cost_pp": 0.6626795609870827,
+      "lower95_pp": 0.44633722894993844,
+      "upper95_pp": 0.9166927591008991
+    },
+    {
+      "coverage_pct": 100,
+      "fgt1_cost_pp": 1.0503078510821606,
+      "lower95_pp": 0.8195090247916926,
+      "upper95_pp": 1.3135893629418247
+    }
+  ],
+  "input_hashes": {
+    "outputs\\diagnostics\\pmt_coverage_optimization_final.json": "ad81826885956403efa9c72a508fdfeef16f5a477d0f038a8779379f6ae6c27e",
+    "outputs\\tables\\PMT_coverage_optimization_final_curve.csv": "40d2c906dae32e1e8b4bd5eff402d7c5a56925d88ee53c14d0b5b731e76a1410",
+    "outputs\\tables\\main\\Table1_main_policy_results.csv": "d3724751aeea9e6687230430f497feab5ce135894e2561a094911a692e10a6c9",
+    "outputs\\diagnostics\\pmt_coverage_optimization.json": "251d14ab18cd631087f4ee537ac88d5c79f97748562a3803d52529bac86b899a",
+    "outputs\\diagnostics\\pmt_coverage_competing_minima.json": "988d9b0d57a48312070550ca4c9124836b6e7be35f913fd6102a459a28560487"
+  },
+  "source_sha256": "ce50a202cdbf8f838f92e8ac9e8325091a4cffaa8cacd589b40a3d63f35bd085",
+  "original_outputs_unchanged": true,
+  "checks": [
+    "All original source/output hash contracts hold",
+    "Same net fiscal budget across selected policies",
+    "Population increments match stored recipient counts",
+    "Incremental costs telescope to total cost",
+    "Coverage and per-million slope conversions agree",
+    "Forgone and retained benefit shares sum to 100",
+    "Conditional intervals agree with previous paired results"
+  ]
+}

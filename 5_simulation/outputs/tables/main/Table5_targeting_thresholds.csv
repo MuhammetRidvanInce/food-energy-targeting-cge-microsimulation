@@ -1,0 +1,12 @@
+exclusion,last_grid_leakage_targeting_better,first_grid_leakage_universal_better,max_feasible_grid_leakage,definition
+0,,,0.6,"First nonnegative mean FGT1(targeted)-FGT1(universal), bracketed on 0.02 grid"
+0.1,0.58,0.6,0.62,"First nonnegative mean FGT1(targeted)-FGT1(universal), bracketed on 0.02 grid"
+0.2,0.58,0.6,0.64,"First nonnegative mean FGT1(targeted)-FGT1(universal), bracketed on 0.02 grid"
+0.3,0.58,0.6,0.68,"First nonnegative mean FGT1(targeted)-FGT1(universal), bracketed on 0.02 grid"
+0.4,0.58,0.6,0.7,"First nonnegative mean FGT1(targeted)-FGT1(universal), bracketed on 0.02 grid"
+0.5,0.58,0.6,0.74,"First nonnegative mean FGT1(targeted)-FGT1(universal), bracketed on 0.02 grid"
+0.6,0.58,0.6,0.78,"First nonnegative mean FGT1(targeted)-FGT1(universal), bracketed on 0.02 grid"
+0.7,0.58,0.6,0.82,"First nonnegative mean FGT1(targeted)-FGT1(universal), bracketed on 0.02 grid"
+0.8,0.56,0.58,0.88,"First nonnegative mean FGT1(targeted)-FGT1(universal), bracketed on 0.02 grid"
+0.9,0.52,0.54,0.92,"First nonnegative mean FGT1(targeted)-FGT1(universal), bracketed on 0.02 grid"
+0.95,0.34,0.36,0.94,"First nonnegative mean FGT1(targeted)-FGT1(universal), bracketed on 0.02 grid"

@@ -1,0 +1,543 @@
+{
+  "variables": {
+    "case": [
+      "Scenario configuration",
+      "Text code",
+      "Identifies the shock, fiscal envelope or model assumption used for the simulation.",
+      "The scenario legend defines every observed code. Unspecified settings remain equal to the main configuration.",
+      "codes/common.py: configurations()"
+    ],
+    "policy": [
+      "Policy instrument or reference state",
+      "Text code",
+      "Identifies the benchmark, unsupported shock or household support instrument.",
+      "baseline is the unshocked benchmark; shock is the no-policy equilibrium under the specified configuration. Policy codes are defined in the legend.",
+      "codes/run_simulations.py: main()"
+    ],
+    "fgt0_pct": [
+      "Poverty headcount (FGT0)",
+      "Percent (%)",
+      "100 times the person-weighted share with real equivalent disposable income below the fixed real poverty line.",
+      "Full-payment and zero-payment states of fractional boundary households are weighted separately. A lower value indicates a lower poverty headcount.",
+      "codes/micro_simulation.py: household_outcomes()"
+    ],
+    "fgt1_pct": [
+      "Poverty gap (FGT1)",
+      "Percent (%)",
+      "100 × person-weighted mean[max(1 − y/z, 0)], where y is real equivalent disposable income and z is the fixed real poverty line.",
+      "The denominator is the full represented population, including non-poor people. A lower value indicates a smaller aggregate normalised income shortfall.",
+      "codes/micro_simulation.py: household_outcomes()"
+    ],
+    "fgt2_pct": [
+      "Squared poverty gap (FGT2)",
+      "Percent (%)",
+      "100 × person-weighted mean[max(1 − y/z, 0)²].",
+      "Places greater weight on deeper income shortfalls. Uses the same poverty line as FGT0 and FGT1; a lower value indicates lower poverty severity.",
+      "codes/micro_simulation.py: household_outcomes()"
+    ],
+    "bottom40_ev_pct": [
+      "Bottom-40 real consumption welfare change",
+      "Percent of initial spending",
+      "100 × sum of household-weighted money-metric welfare changes in the lowest two benchmark income groups / their total household-weighted initial consumption budgets.",
+      "The money-metric change is the policy real consumption budget minus its benchmark value. Group membership is fixed at the benchmark. A positive value is a gain; this is an expenditure-normalised aggregate rather than an average of household percentage changes.",
+      "codes/micro_simulation.py: household_outcomes()"
+    ],
+    "all_ev_pct": [
+      "Population-wide real consumption welfare change",
+      "Percent of initial spending",
+      "100 × sum of household-weighted money-metric welfare changes / total household-weighted benchmark consumption budgets.",
+      "Uses household expansion weights and household-specific cost-of-living deflation. A positive value indicates a gain relative to the unshocked benchmark.",
+      "codes/micro_simulation.py: household_outcomes()"
+    ],
+    "bottom40_loser_pct": [
+      "Share of bottom-40 persons losing consumption",
+      "Percent (%)",
+      "100 times the person-weighted share in the lowest two benchmark income groups whose real consumption budget is below its benchmark level.",
+      "Receipt states are weighted separately. The numerical loss cutoff is the initial budget multiplied by (1 − 10⁻¹⁰), which removes roundoff at the benchmark.",
+      "codes/micro_simulation.py: household_outcomes()"
+    ],
+    "micro_macro_demand_gap_pct": [
+      "Micro–macro consumption expenditure discrepancy",
+      "Percent of macro household spending",
+      "100 × sum of absolute differences between micro-aggregated and CGE consumption expenditure across sector-by-quintile cells / total CGE household consumption expenditure.",
+      "Measures the demand discrepancy associated with heterogeneous household baskets versus representative group baskets. Values near zero indicate closer reconciliation.",
+      "codes/micro_simulation.py: household_outcomes()"
+    ],
+    "max_group_budget_gap_trillion_tl": [
+      "Maximum group budget reconciliation residual",
+      "Trillion TL; absolute difference",
+      "Largest absolute difference, across the five groups, between household-weighted micro consumption budgets and the corresponding CGE group budget.",
+      "An accounting diagnostic. The code checks that it is below 10⁻⁸ trillion TL. Very small scientific-notation values retain numerical roundoff.",
+      "codes/micro_simulation.py: household_outcomes()"
+    ],
+    "negative_income_households": [
+      "Households with negative reconstructed income",
+      "Unweighted sample-household count",
+      "Number of distinct households with negative real equivalent disposable income in at least one receipt state with positive weight.",
+      "The zero-payment state is checked when mask < 1, and the full-payment state when mask > 0. This is a sample count, not an expanded national household total. S10 provides the boundary diagnostic.",
+      "codes/micro_simulation.py: household_outcomes()"
+    ],
+    "gini": [
+      "Income Gini coefficient",
+      "Coefficient; usually 0–1",
+      "Person-weighted Gini coefficient of real equivalent disposable income, including the full-payment/zero-payment mixture for fractional recipients.",
+      "A lower value generally indicates lower inequality. Values are not multiplied by 100. Negative-income distributions require separate interpretation of the usual 0–1 range.",
+      "codes/micro_simulation.py: household_outcomes()"
+    ],
+    "gdp_nominal_trillion_tl": [
+      "GDP at current model prices",
+      "Trillion TL in model price units",
+      "Model factor income + total tax revenue − household direct taxes − consumer price-support expenditure.",
+      "The wage is the numeraire. This is a current-price level; real GDP change is reported separately. One trillion TL equals 1,000 billion TL.",
+      "codes/policy_model.py: gdp(); snapshot()"
+    ],
+    "real_gdp_baseprice_pct": [
+      "GDP change at benchmark prices",
+      "Percent change (%)",
+      "100 × (final demand valued at benchmark prices / benchmark GDP − 1). Includes household consumption, public purchases, administration services, investment and net exports.",
+      "Relative to the unshocked benchmark. The code values final-demand quantities using the benchmark user-specific tax rates.",
+      "codes/policy_model.py: snapshot()"
+    ],
+    "investment_baseprice_pct": [
+      "Investment change at benchmark prices",
+      "Percent change (%)",
+      "100 × (sum of sector investment quantities / benchmark total investment quantity − 1).",
+      "Relative to the unshocked benchmark. Quantities use unit benchmark-price normalisation. Treatment of negative net investment components depends on the scenario closure.",
+      "codes/policy_model.py: snapshot()"
+    ],
+    "exchange_rate": [
+      "Exchange-rate index",
+      "Index; benchmark = 1",
+      "The equilibrium exchange_rate variable: the normalised domestic-currency price of foreign currency.",
+      "For example, 1.01 indicates an increase of approximately 1%, rather than a 1.01% change. The index is measured relative to the fixed wage numeraire.",
+      "codes/policy_model.py: snapshot()"
+    ],
+    "capital_rental": [
+      "Capital rental index",
+      "Index; benchmark = 1",
+      "Equilibrium capital rental price r.",
+      "The wage is fixed at 1, so this measures the capital return relative to the wage numeraire. Its percentage change is 100 × (value − 1).",
+      "codes/policy_model.py: snapshot()"
+    ],
+    "net_fiscal_cost_trillion_tl": [
+      "Net fiscal cost",
+      "Trillion TL",
+      "Government saving in the same-shock no-policy equilibrium minus government saving in the policy equilibrium.",
+      "Includes tax and public-purchase-price feedbacks. Distinct from gross programme outlays. Recorded as zero for baseline and shock reference rows.",
+      "codes/policy_model.py: snapshot()"
+    ],
+    "net_cost_gdp_pct": [
+      "Net fiscal cost as a share of GDP",
+      "Percent of benchmark GDP",
+      "100 × net fiscal cost / unshocked benchmark GDP.",
+      "Main supported policies have value 0.5, meaning 0.5% of GDP. low_budget and high_budget use 0.25% and 1%, respectively.",
+      "codes/policy_model.py: snapshot()"
+    ],
+    "net_cash_trillion_tl": [
+      "Net cash delivered to households",
+      "Trillion TL",
+      "Total new cash transferred directly to households, excluding administration expenditure (policy_cash).",
+      "Excludes households’ other income. Zero under price support. Under cash_saving_10pct, 10% of this payment is saved rather than consumed.",
+      "codes/policy_model.py: snapshot()"
+    ],
+    "price_support_trillion_tl": [
+      "Consumer price-support expenditure",
+      "Trillion TL",
+      "Sum of discount rate × pre-support tax-inclusive price × household consumption quantity across supported sectors and household groups.",
+      "Calculated using equilibrium quantities. Zero under cash policies.",
+      "codes/policy_model.py: policy_model(); snapshot()"
+    ],
+    "admin_cost_trillion_tl": [
+      "Administration expenditure",
+      "Trillion TL",
+      "Administrative rate / (1 − administrative rate) × net cash. Spent on public administration services, sector S54.",
+      "The main rate is 3% of gross cash-programme spending. zero_admin and high_admin change that rate. No separate price-support administration cost is specified in this component.",
+      "codes/policy_model.py: policy_model(); snapshot()"
+    ],
+    "gross_program_cost_trillion_tl": [
+      "Gross programme expenditure",
+      "Trillion TL",
+      "Net household cash + administration expenditure + consumer price-support expenditure.",
+      "Can differ from final net fiscal cost because taxes and public-purchase prices adjust in equilibrium.",
+      "codes/policy_model.py: snapshot()"
+    ],
+    "tax_revenue_trillion_tl": [
+      "Total government tax revenue",
+      "Trillion TL",
+      "Equilibrium T: the total of production, product and direct-tax revenue components.",
+      "Includes relevant product taxes on public and administrative purchases. Negative net tax components retain their signs.",
+      "codes/policy_model.py: snapshot()"
+    ],
+    "government_saving_trillion_tl": [
+      "Government saving",
+      "Trillion TL",
+      "Tax revenue less the current cost of real public purchases, cash transfers, administration expenditure and consumer subsidies.",
+      "Its decline relative to the same-shock no-policy reference defines net fiscal cost. It contributes to investment financing under the savings-driven closure.",
+      "codes/policy_model.py: snapshot()"
+    ],
+    "consumer_discount_pct": [
+      "Consumer price discount",
+      "Percent (%)",
+      "100 × the common endogenous policy_relief rate.",
+      "Applies only to household purchases of eligible goods. This is not the total CPI change. Zero under cash policies.",
+      "codes/policy_model.py: snapshot()"
+    ],
+    "sector": [
+      "Model sector code",
+      "Text code S00–S63",
+      "Unique activity identifier in the 64-sector SAM and CGE model.",
+      "The sector legend links each identifier to its NACE code and activity name. Codes are consistent across inputs and outputs.",
+      "datas/SAM_2023_64_sectors_5_households.xlsx: Accounts"
+    ],
+    "nace": [
+      "NACE activity code",
+      "NACE Rev. 2 code",
+      "National-accounts activity classification corresponding to the model sector.",
+      "L68A denotes imputed owner-occupied housing services; L68B denotes other real estate. These are model-specific subdivisions.",
+      "codes/policy_model.py: snapshot()"
+    ],
+    "output_pct": [
+      "Sector output-volume change",
+      "Percent change (%)",
+      "100 × (policy equilibrium output Z / benchmark output Z0 − 1).",
+      "In this CSV, the reference is the unshocked benchmark. The value combines shock and support effects; it is not the incremental support effect relative to the unsupported shock.",
+      "codes/policy_model.py: snapshot()"
+    ],
+    "composite_price_pct": [
+      "Armington composite-price change",
+      "Percent change (%)",
+      "100 × (domestic–import composite supply price pq − 1), with benchmark pq = 1.",
+      "A composite supply price, distinct from the final household purchaser price including consumption taxes and support discounts.",
+      "codes/policy_model.py: snapshot()"
+    ],
+    "imports_volume_trillion_tl": [
+      "Import volume",
+      "Trillion TL equivalent at benchmark prices",
+      "Model import quantity M. Unit benchmark-price normalisation expresses quantities on a benchmark monetary-value-equivalent scale.",
+      "Not tonnes, physical units or the current import bill. Current value requires multiplication by the corresponding import price. Benchmark zero-import sectors retain zero flows.",
+      "codes/policy_model.py: snapshot()"
+    ],
+    "exports_volume_trillion_tl": [
+      "Export volume",
+      "Trillion TL equivalent at benchmark prices",
+      "Model export quantity E, reported on a monetary-equivalent scale at unit benchmark prices.",
+      "Not physical units or current export revenue. Current value requires multiplication by the export price. Benchmark zero-export sectors retain zero flows.",
+      "codes/policy_model.py: snapshot()"
+    ],
+    "exclusion": [
+      "Exclusion rate",
+      "Fraction; 0–1",
+      "Share of eligible persons not receiving cash: 1 − recipient population within the target / target population, using person weights.",
+      "Eligibility is membership in the lowest two benchmark equivalent-income groups. 0.30 means 30%. S4/S5 use design coordinates; S6 computes the realised rate from recipient allocation.",
+      "codes/micro_simulation.py: errors(); random_receipt()"
+    ],
+    "leakage": [
+      "Leakage rate",
+      "Fraction; 0–1",
+      "Share of cash reaching non-eligible recipients. Under equal-per-person payments, equals non-eligible recipient population / total recipient population.",
+      "0.30 means 30%. The denominator is all recipients, not all non-eligible persons. In S6, fixed total coverage equal to target-population size implies leakage = exclusion.",
+      "codes/micro_simulation.py: errors(); random_receipt()"
+    ],
+    "seed": [
+      "Recipient-draw index",
+      "Integer; 0–9",
+      "Identifies one of ten random recipient allocations at a given experimental level.",
+      "The actual random seed is 20261025 + seed in S4 and 20261025 + 100 + seed in S6. This column stores the draw index, not the complete random seed.",
+      "codes/run_simulations.py: main()"
+    ],
+    "difference_vs_universal_pp": [
+      "Targeted-minus-universal poverty-gap difference",
+      "Percentage points (pp)",
+      "FGT1 of the specified targeted-cash allocation minus FGT1 under main-scenario universal cash.",
+      "Negative values favour targeted cash; positive values favour universal cash. Uses the common main shock and net fiscal budget. This is a percentage-point difference, not a percentage change.",
+      "codes/run_simulations.py: main()"
+    ],
+    "mean_difference_pp": [
+      "Mean policy difference",
+      "Percentage points (pp)",
+      "Arithmetic mean of the ten difference_vs_universal_pp values in the same exclusion–leakage cell.",
+      "A negative mean indicates a targeting advantage. The error-grid ranking surface is based on these cell means.",
+      "codes/run_simulations.py: main()"
+    ],
+    "seed_sd_pp": [
+      "Across-draw standard deviation",
+      "Percentage points (pp)",
+      "Sample standard deviation of the ten policy differences within the cell; pandas std uses ddof = 1.",
+      "Describes variation across recipient draws. It is neither a standard error nor a 95% confidence interval.",
+      "codes/run_simulations.py: main()"
+    ],
+    "min_seed_difference_pp": [
+      "Minimum draw difference",
+      "Percentage points (pp)",
+      "Minimum policy difference among the ten draws in the exclusion–leakage cell.",
+      "More negative values indicate a larger targeted-cash advantage. This is the lower endpoint of the draw range, not a confidence bound.",
+      "codes/run_simulations.py: main()"
+    ],
+    "max_seed_difference_pp": [
+      "Maximum draw difference",
+      "Percentage points (pp)",
+      "Maximum policy difference among the ten draws in the exclusion–leakage cell.",
+      "Upper endpoint of the recipient-draw range, distinct from a conditional bootstrap confidence bound.",
+      "codes/run_simulations.py: main()"
+    ],
+    "level": [
+      "Score-degradation level",
+      "Text code",
+      "r2_* denotes the target R² of the out-of-fold PMT income score after adding noise. independent denotes a separately generated independent random score.",
+      "Nine finite levels: 0.4, 0.3, 0.2, 0, −0.5, −1, −2, −4 and −8. Ten recipient draws per level, plus ten independent-score draws, give 100 rows.",
+      "codes/run_simulations.py: main()"
+    ],
+    "r2": [
+      "Noisy income-score R²",
+      "Dimensionless; can be negative",
+      "1 − person-weighted mean squared prediction error / person-weighted variance of log(1 + equivalent disposable income). Noise is scaled to attain the specified target exactly.",
+      "For finite levels, the code checks that achieved and target R² differ by less than 10⁻¹⁰. Blank for independent-score rows because R² is not reported there; blank does not mean zero.",
+      "codes/run_simulations.py: main()"
+    ],
+    "coverage": [
+      "Recipient coverage",
+      "Fraction; 0–1",
+      "Represented persons receiving cash / total represented population.",
+      "S6 holds coverage at the lowest-two-quintile population share, approximately 0.399903. Fractional boundary weights provide exact person-weighted coverage.",
+      "codes/micro_simulation.py: errors(); exact_mask()"
+    ],
+    "poverty_line_fraction": [
+      "Poverty-line-to-median ratio",
+      "Fraction; 0.5 / 0.6 / 0.7",
+      "Multiplier applied to benchmark person-weighted median equivalent income to define the fixed real poverty line.",
+      "0.5, 0.6 and 0.7 mean 50%, 60% and 70% of the median. Within each measurement variant, the line remains fixed across policies.",
+      "codes/micro_simulation.py: household_outcomes()"
+    ],
+    "homogeneous_within_quintile": [
+      "Common within-quintile basket flag",
+      "Boolean literal: False / True",
+      "False uses each household’s calibrated sector budget shares. True assigns the CGE group budget shares to every household in that quintile.",
+      "Changes household price indices and micro demand composition. Policy equilibria and recipient lists remain fixed in this measurement-sensitivity exercise.",
+      "codes/micro_simulation.py: household_outcomes()"
+    ],
+    "category": [
+      "Broad activity group",
+      "Agriculture / Industry / Services",
+      "S00–S02 are Agriculture, S03–S26 are Industry and S27–S63 are Services in the model code.",
+      "A reporting classification. Elasticities are read separately for each sector.",
+      "../4_cge_model/codes/cge_model.py: load_elasticities()"
+    ],
+    "sigma": [
+      "Armington substitution elasticity (σ)",
+      "Dimensionless elasticity",
+      "CES substitution elasticity between domestic and imported varieties within a sector.",
+      "Uses GTAP 11 ESUBD mappings and adaptations for mixed activities. sigma_source documents each mapping. The import branch is inactive in zero-import sectors.",
+      "../4_cge_model/codes/cge_model.py: load_elasticities()"
+    ],
+    "psi": [
+      "CET transformation elasticity (ψ)",
+      "Dimensionless positive elasticity",
+      "Constant elasticity of transformation governing allocation of sector output between domestic sales and exports.",
+      "Uses a positive ψ convention. Benchmark assumptions are 1.12 for agriculture, 0.601 for industry and 0.5 for services. The export branch is inactive in zero-export sectors.",
+      "../4_cge_model/codes/cge_model.py: load_elasticities()"
+    ],
+    "omega": [
+      "Value-added CES substitution elasticity (ω)",
+      "Dimensionless elasticity",
+      "Capital–labour substitution elasticity in the value-added nest.",
+      "Assigned from Turkish industry estimates and GTAP factor-substitution proxies. Reported values in single-factor sectors do not activate two-factor substitution. omega_source gives the adaptations.",
+      "../4_cge_model/codes/cge_model.py: load_elasticities()"
+    ],
+    "sigma_source": [
+      "Armington parameter source",
+      "Source and adaptation text",
+      "Author, year, table, source parameter, sector mapping, aggregation convention and DOI/URL for σ.",
+      "Copied verbatim from the selected-elasticity workbook’s Armington sheet, source-and-adaptation column. Original-language source quotations are retained.",
+      "../4_cge_model/codes/cge_model.py: load_elasticities()"
+    ],
+    "psi_source": [
+      "CET parameter source",
+      "Source and adaptation text",
+      "Source publication, broad activity assumption, positive transformation convention and DOI/URL for ψ.",
+      "Copied verbatim from the selected-elasticity workbook’s CET sheet, source-and-adaptation column. Original-language source quotations are retained.",
+      "../4_cge_model/codes/cge_model.py: load_elasticities()"
+    ],
+    "omega_source": [
+      "Factor-substitution parameter source",
+      "Source and adaptation text",
+      "Turkish estimate or GTAP proxy, sector adaptation, single-factor convention and DOI/URL for ω.",
+      "Copied verbatim from the selected-elasticity workbook’s CES sheet, source-and-adaptation column. Original-language source quotations are retained.",
+      "../4_cge_model/codes/cge_model.py: load_elasticities()"
+    ],
+    "negative_households": [
+      "Households with negative real equivalent income",
+      "Unweighted sample-household count",
+      "Count of households whose reconstructed real equivalent disposable income is below zero in the specified unsupported-shock reference.",
+      "Only flagged configurations are included. The current output contains one affected sample household, not an expanded national household count.",
+      "codes/income_diagnostics.py: main()"
+    ],
+    "affected_population_pct": [
+      "Population share affected by negative income",
+      "Percent (%)",
+      "100 × person-weight sum for negative-income households / person-weight sum for all households.",
+      "A represented-person share, not a percentage of sample households.",
+      "codes/income_diagnostics.py: main()"
+    ],
+    "minimum_real_equivalent_income_hbs_tl": [
+      "Minimum real equivalent disposable income",
+      "Annual HBS-equivalent TL per equivalent adult",
+      "Smallest reconstructed real equivalent disposable income in the configuration, after reversing macro scaling and deflating by the household price index.",
+      "Uses the 2024 HBS income scale, not trillion TL. The negative value records the boundary case associated with the factor-income-indexed micro reconciliation residual.",
+      "codes/income_diagnostics.py: main()"
+    ],
+    "poverty_line_hbs_tl": [
+      "Fixed real poverty line",
+      "Annual HBS-equivalent TL per equivalent adult",
+      "60% of benchmark person-weighted median equivalent disposable income.",
+      "The S10 diagnostic holds this line fixed and changes only the negative-income treatment.",
+      "codes/income_diagnostics.py: main()"
+    ],
+    "original_fgt1_pct": [
+      "Poverty gap using original reconstructed incomes",
+      "Percent (%)",
+      "100 × person-weighted mean[max(1 − y/z, 0)] using original reconstructed incomes, including the negative observation.",
+      "Reproduces FGT1 for the corresponding case / shock row in S1.",
+      "codes/income_diagnostics.py: main()"
+    ],
+    "zero_floor_fgt1_pct": [
+      "Poverty gap after a zero-income floor",
+      "Percent (%)",
+      "Replaces y with max(y, 0), then recomputes FGT1 using the same weights and poverty line.",
+      "A separate sensitivity diagnostic. The accounting-consistent income values in the main analysis are retained.",
+      "codes/income_diagnostics.py: main()"
+    ],
+    "zero_floor_difference_pp": [
+      "Effect of the zero-income floor on FGT1",
+      "Percentage points (pp)",
+      "zero_floor_fgt1_pct − original_fgt1_pct.",
+      "Negative values indicate a reduction in measured poverty depth after flooring negative income at zero. Scientific notation preserves very small differences.",
+      "codes/income_diagnostics.py: main()"
+    ],
+    "note": [
+      "Diagnostic note",
+      "Text",
+      "Code-generated explanation of the negative-income boundary case.",
+      "The current note attributes it to the factor-indexed micro reconciliation residual and confirms nonnegative disposable incomes in supported policy cases.",
+      "codes/income_diagnostics.py: main()"
+    ],
+    "group": [
+      "Benchmark income quintile",
+      "Q1-Q5",
+      "Person-weighted equivalent-income quintile fixed at the benchmark.",
+      "Q1 is the lowest-income group; Q5 is the highest.",
+      "codes/micro_simulation.py"
+    ],
+    "ev_pct": [
+      "Real consumption change",
+      "Percent",
+      "Money-metric real consumption change normalised by initial spending within the quintile.",
+      "Relative to the unshocked benchmark; household-weight aggregation.",
+      "codes/micro_simulation.py"
+    ],
+    "cpi_base100": [
+      "Quintile consumer price index",
+      "Index; benchmark = 100",
+      "Person-weighted mean of household-specific calibrated expenditure-share price indices within the quintile, multiplied by 100.",
+      "Values above 100 indicate higher purchaser prices.",
+      "codes/micro_simulation.py"
+    ],
+    "recipient_person_pct": [
+      "Cash receipt coverage",
+      "Percent of quintile persons",
+      "Person-weighted cash receipt within the quintile.",
+      "Price support has no cash recipients.",
+      "codes/micro_simulation.py"
+    ],
+    "cash_share_pct": [
+      "Quintile cash share",
+      "Percent of total cash",
+      "Cash received by the quintile divided by total household cash payments, times 100.",
+      "Excludes administrative costs.",
+      "codes/micro_simulation.py"
+    ],
+    "loser_pct": [
+      "Consumption loss incidence",
+      "Percent of quintile persons",
+      "Person-weighted share with real consumption below its benchmark level.",
+      "A negative money-metric consumption change identifies a loss.",
+      "codes/micro_simulation.py"
+    ],
+    "mean_exclusion_pct": [
+      "Mean exclusion rate",
+      "Percent",
+      "Mean exclusion across ten recipient seeds, multiplied by 100.",
+      "Eligible persons excluded from cash receipt.",
+      "codes/run_simulations.py"
+    ],
+    "mean_leakage_pct": [
+      "Mean leakage rate",
+      "Percent",
+      "Mean leakage across ten recipient seeds, multiplied by 100.",
+      "Share of recipient persons outside the eligible population.",
+      "codes/run_simulations.py"
+    ],
+    "mean_fgt1_pct": [
+      "Mean poverty gap",
+      "Percent",
+      "Mean FGT1 across ten recipient seeds.",
+      "FGT1 is the person-weighted mean normalised poverty shortfall over all persons.",
+      "codes/run_simulations.py"
+    ],
+    "lower95_pp": [
+      "Conditional lower bound",
+      "Percentage points",
+      "2.5th percentile of the combined recipient-seed and household-weight distribution of the paired FGT1 difference.",
+      "Targeted allocation minus universal cash; conditional on the model calibration.",
+      "codes/run_simulations.py: score-degradation intervals"
+    ],
+    "upper95_pp": [
+      "Conditional upper bound",
+      "Percentage points",
+      "97.5th percentile of the combined recipient-seed and household-weight distribution of the paired FGT1 difference.",
+      "Targeted allocation minus universal cash; conditional on the model calibration.",
+      "codes/run_simulations.py: score-degradation intervals"
+    ],
+    "recipient_seeds": [
+      "Number of recipient seeds",
+      "Count",
+      "Number of recipient draws entering the level mean and combined conditional distribution.",
+      "Ten draws at each score level.",
+      "codes/run_simulations.py"
+    ],
+    "predictor_type": [
+      "Predictor type",
+      "Category",
+      "Categorical or numeric input block.",
+      "The data preparation is fitted independently in each training fold.",
+      "codes/micro_simulation.py: PMT"
+    ],
+    "predictors": [
+      "Predictor list",
+      "Text",
+      "Inputs used in the predictor block.",
+      "19 categorical and 9 numeric inputs across five blocks.",
+      "codes/micro_simulation.py: PMT"
+    ],
+    "predictor_count": [
+      "Predictor count",
+      "Count",
+      "Number of raw inputs in this block before one-hot expansion.",
+      "Counts do not refer to the final number of regression columns.",
+      "codes/micro_simulation.py: PMT"
+    ],
+    "preprocessing": [
+      "Fold-local preparation",
+      "Text",
+      "Preparation fitted on the training-fold records and applied to validation records.",
+      "Five shuffled folds; ridge penalty 10; seed 20261025; person weights normalised within folds.",
+      "codes/micro_simulation.py: PMT"
+    ],
+    "output_relative_to_shock_pct": [
+      "Incremental sector output response",
+      "Percent",
+      "100 * ((1 + policy output_pct/100) / (1 + same-shock output_pct/100) - 1).",
+      "Relative to the unsupported main shock, matching the sector table in the Word supplement and Figure S4. The separate output_pct column uses the unshocked benchmark.",
+      "outputs/equilibria/main_equilibria.json; codes/document_supplementary_tables.py"
+    ]
+  }
+}

@@ -1,0 +1,121 @@
+{
+  "status": "complete",
+  "optimum": {
+    "coverage_pct": 4.305726866645756,
+    "recipients_million": 3.622394101958638,
+    "annual_cash_per_recipient_sam_tl": 36028.114841948125,
+    "target_reached_pct": 10.450415979361294,
+    "exclusion_pct": 89.5495840206387,
+    "leakage_pct": 2.9397236122549826,
+    "net_fiscal_cost_billion_tl": 135.45734532350528,
+    "fgt0_pct": 23.902298044080805,
+    "fgt1_pct": 6.674924900986275,
+    "fgt2_pct": 2.7871758629526027,
+    "bottom40_ev_pct": 2.1269542275152973,
+    "all_ev_pct": -0.8960036158728943,
+    "bottom40_loser_pct": 89.456545080631,
+    "micro_macro_demand_gap_pct": 0.29891431720814066,
+    "max_group_budget_gap_trillion_tl": 1.7763568394002505e-15,
+    "negative_income_households": 0,
+    "gini": 0.39273719212658253
+  },
+  "objective": "Minimise population FGT1 over a threshold in the existing out-of-fold PMT ranking, at the main equal-net-cost fiscal constraint.",
+  "config": {
+    "food": 0.2,
+    "energy": 0.4,
+    "budget": 0.005,
+    "admin": 0.03,
+    "trade_scale": 1.0,
+    "factor_scale": 1.0,
+    "subsidy_sectors": [
+      "S00",
+      "S02",
+      "S04",
+      "S09",
+      "S23"
+    ],
+    "symmetric": false,
+    "investment_closure": "signed_shares",
+    "cash_saving": 0.0
+  },
+  "evaluated_policy_count": 426,
+  "checked_equilibria": 428,
+  "unique_evaluated_coverages": 416,
+  "max_checks": {
+    "max_scaled_equation_residual": 5.20284985927766e-11,
+    "max_relative_goods_gap": 9.923657700711642e-11,
+    "household_budget_relative_gap": 1.2044703354258673e-15,
+    "gdp_identity_relative_gap": 1.7709150878753705e-11,
+    "max_sam_account_gap_trillion_tl": 4.837836797833006e-10
+  },
+  "max_fiscal_relative_gap": 7.437967962837985e-14,
+  "paired_intervals": [
+    {
+      "policy_a": "validated_optimum",
+      "policy_b": "initial_optimum",
+      "difference_pp": -0.0019120295325287277,
+      "lower95_pp": -0.09336637906348963,
+      "upper95_pp": 0.0517417731581927,
+      "replications": 1000
+    },
+    {
+      "policy_a": "validated_optimum",
+      "policy_b": "pmt_20",
+      "difference_pp": -0.3721546348444293,
+      "lower95_pp": -0.5965882810315656,
+      "upper95_pp": -0.17448372569624132,
+      "replications": 1000
+    },
+    {
+      "policy_a": "validated_optimum",
+      "policy_b": "pmt_40",
+      "difference_pp": -0.6626795609870827,
+      "lower95_pp": -0.9166927591008991,
+      "upper95_pp": -0.44633722894993844,
+      "replications": 1000
+    },
+    {
+      "policy_a": "validated_optimum",
+      "policy_b": "universal_cash",
+      "difference_pp": -1.0503078510821606,
+      "lower95_pp": -1.3135893629418247,
+      "upper95_pp": -0.8195090247916926,
+      "replications": 1000
+    }
+  ],
+  "near_optimal_evaluated_range_pct": [
+    3.90052826873,
+    4.53839749846
+  ],
+  "near_optimal_tolerance_fgt1_pp": 0.01,
+  "original_outputs_unchanged": true,
+  "initial_candidate": {
+    "coverage_pct": 3.9549341498756294,
+    "stage": "household_boundaries",
+    "recipients_million": 3.327273322681698,
+    "target_reached_pct": 9.619199225979225,
+    "exclusion_pct": 90.38080077402077,
+    "leakage_pct": 2.735561164041987,
+    "annual_cash_per_recipient_sam_tl": 39222.46611596393,
+    "net_cash_billion_tl": 130.5038651574336,
+    "net_fiscal_cost_billion_tl": 135.45734532350494,
+    "net_cost_gdp_pct": 0.49999999999999106,
+    "fgt0_pct": 23.948776812078382,
+    "fgt1_pct": 6.676836930518626,
+    "fgt2_pct": 2.8005169448597145,
+    "bottom40_ev_pct": 2.1351092088333097,
+    "all_ev_pct": -0.8960647758751943,
+    "bottom40_loser_pct": 90.28776183401308,
+    "micro_macro_demand_gap_pct": 0.3087538669764651,
+    "max_group_budget_gap_trillion_tl": 8.881784197001252e-16,
+    "negative_income_households": 0,
+    "gini": 0.3927499639660348
+  },
+  "secondary_refinement": "Refine all secondary fine-grid local minima within 0.02 FGT1 percentage points of the preliminary best, outside its +/-0.3 percentage-point window; all household boundaries, midpoints and bounded optimisation of four best intervals.",
+  "source_audits": [
+    "pmt_coverage_optimization.json",
+    "pmt_coverage_competing_minima.json"
+  ],
+  "summarizer_sha256": "7ffb4deb25c69df67cdb47c280470a2de225442c2c913efd15bed7c0a3495886",
+  "interpretation": "Numerically located minimum for the existing PMT score and equal per-person transfer, conditional on the stated shock, budget, model and microdata. Original target coverage is an additional policy outcome. No mathematical global certificate or external validation is claimed."
+}

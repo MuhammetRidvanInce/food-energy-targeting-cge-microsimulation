@@ -1,0 +1,175 @@
+{
+  "stage": 2,
+  "year": 2023,
+  "unit": "thousand TRY",
+  "accounts": 73,
+  "sectors": 64,
+  "direct_tax_D5": 1762053126.857001,
+  "net_production_tax_PTAX": -321052811.9305103,
+  "net_product_tax_CTAX": 2997641669.8982677,
+  "net_production_product_tax": 2676588857.967757,
+  "savings": {
+    "HOH": 6613725242.95961,
+    "GOV": 852798860.6981878,
+    "EXT": 1903948127.4432564
+  },
+  "investment": 9370472231.10096,
+  "maximum_balance_error_bin_TL": 9.72747802734375e-05,
+  "negative_cells": 32,
+  "balancing_adjustment": "None; source flows preserved",
+  "checks": [
+    {
+      "Check": "D.5 = D.51 + D.59",
+      "Maximum absolute difference": 4.76837158203125e-07,
+      "Tolerance": 1e-06,
+      "Passed": true
+    },
+    {
+      "Check": "Total intermediate transactions = domestic + imported",
+      "Maximum absolute difference": 2.384185791015625e-07,
+      "Tolerance": 0.001,
+      "Passed": true
+    },
+    {
+      "Check": "Total final use = domestic + imported",
+      "Maximum absolute difference": 9.5367431640625e-07,
+      "Tolerance": 0.001,
+      "Passed": true
+    },
+    {
+      "Check": "Import vector = imported intermediate + final use",
+      "Maximum absolute difference": 4.76837158203125e-07,
+      "Tolerance": 0.001,
+      "Passed": true
+    },
+    {
+      "Check": "Output = TurkStat P.1 total economy",
+      "Maximum absolute difference": 7.62939453125e-06,
+      "Tolerance": 0.001,
+      "Passed": true
+    },
+    {
+      "Check": "Labour = TurkStat D.1 production uses",
+      "Maximum absolute difference": 0.0,
+      "Tolerance": 0.001,
+      "Passed": true
+    },
+    {
+      "Check": "Capital = TurkStat B.2g/B.3g",
+      "Maximum absolute difference": 9.5367431640625e-06,
+      "Tolerance": 0.001,
+      "Passed": true
+    },
+    {
+      "Check": "Net product taxes = TurkStat D21-D31",
+      "Maximum absolute difference": 1.430511474609375e-06,
+      "Tolerance": 0.001,
+      "Passed": true
+    },
+    {
+      "Check": "Other net production taxes = TurkStat D29-D39",
+      "Maximum absolute difference": 0.0,
+      "Tolerance": 0.001,
+      "Passed": true
+    },
+    {
+      "Check": "Hosoe Japan: all account balances (million yen)",
+      "Maximum absolute difference": 0.0,
+      "Tolerance": 0,
+      "Passed": true
+    },
+    {
+      "Check": "Hosoe Table 4.5.C: three saving accounts",
+      "Maximum absolute difference": 0.0,
+      "Tolerance": 0,
+      "Passed": true
+    },
+    {
+      "Check": "Hosoe Table 4.5.C: industry totals",
+      "Maximum absolute difference": 0.0,
+      "Tolerance": 0,
+      "Passed": true
+    },
+    {
+      "Check": "Hosoe Table 4.5.C: factor incomes",
+      "Maximum absolute difference": 0.0,
+      "Tolerance": 0,
+      "Passed": true
+    },
+    {
+      "Check": "Turkey SAM: 73 row-column balances",
+      "Maximum absolute difference": 9.72747802734375e-05,
+      "Tolerance": 0.001,
+      "Passed": true
+    },
+    {
+      "Check": "Turkey SAM: sector total = output + imports",
+      "Maximum absolute difference": 3.6776065826416016e-05,
+      "Tolerance": 0.001,
+      "Passed": true
+    },
+    {
+      "Check": "Investment = private + government + foreign saving",
+      "Maximum absolute difference": 9.5367431640625e-05,
+      "Tolerance": 0.001,
+      "Passed": true
+    },
+    {
+      "Check": "SAM intermediate transactions match the source",
+      "Maximum absolute difference": 0.0,
+      "Tolerance": 0,
+      "Passed": true
+    },
+    {
+      "Check": "SAM final transactions match the source",
+      "Maximum absolute difference": 0.0,
+      "Tolerance": 0,
+      "Passed": true
+    },
+    {
+      "Check": "SAM factors match the source",
+      "Maximum absolute difference": 0.0,
+      "Tolerance": 0,
+      "Passed": true
+    },
+    {
+      "Check": "PTAX preserves source other production taxes",
+      "Maximum absolute difference": 0.0,
+      "Tolerance": 0,
+      "Passed": true
+    },
+    {
+      "Check": "CTAX preserves source product taxes",
+      "Maximum absolute difference": 0.0,
+      "Tolerance": 0,
+      "Passed": true
+    },
+    {
+      "Check": "Sum of the two tax accounts matches the combined source total",
+      "Maximum absolute difference": 0.0,
+      "Tolerance": 0.001,
+      "Passed": true
+    },
+    {
+      "Check": "Final uses have zero PTAX",
+      "Maximum absolute difference": 0.0,
+      "Tolerance": 0,
+      "Passed": true
+    },
+    {
+      "Check": "Saved Excel = Python SAM",
+      "Maximum absolute difference": 0.0,
+      "Tolerance": 0.001,
+      "Passed": true
+    },
+    {
+      "Check": "Saved Excel: 73 account balances",
+      "Maximum absolute difference": 9.5367431640625e-05,
+      "Tolerance": 0.001,
+      "Passed": true
+    }
+  ],
+  "python_numpy": "2.4.3",
+  "python_pandas": "3.0.1",
+  "output_sha256": "83ab70f622267571e7aca9e51bc5f4d278fb4fe985de5dc9e2f8e3baede1945f"
+}

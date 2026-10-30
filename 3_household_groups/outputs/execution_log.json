@@ -1,0 +1,404 @@
+{
+  "stage": "3_household_groups",
+  "sam_year": 2023,
+  "hbs_year": 2024,
+  "sam_unit": "thousand TRY",
+  "sam_shape": [
+    78,
+    78
+  ],
+  "group_codes": [
+    "Q1",
+    "Q2",
+    "Q3",
+    "Q4",
+    "Q5"
+  ],
+  "household_records": 11311,
+  "person_records": 36420,
+  "consumption_records": 518723,
+  "coicop_codes": 286,
+  "zero_income_households": 2,
+  "mixed_labor_share": 0.5,
+  "clipped_labor_proxy_households": 9,
+  "clipped_capital_proxy_households": 9,
+  "ras_support_prior": 1e-08,
+  "ras_iterations": 11,
+  "ras_relative_error": 7.327471962526033e-15,
+  "source_sam_max_imbalance_bin_tl": 8.96453857421875e-05,
+  "expanded_sam_max_imbalance_bin_tl": 8.7738037109375e-05,
+  "recovery_max_error_bin_tl": 4.0531158447265625e-06,
+  "income_bridge_tl_to_sam": 0.001234280359463324,
+  "consumption_bridge_tl_to_sam": 0.0010864748506123313,
+  "negative_group_savings": [],
+  "population_shares": {
+    "Q1": 0.1999660089703155,
+    "Q2": 0.19993677054786269,
+    "Q3": 0.20011761864875274,
+    "Q4": 0.20003195700144727,
+    "Q5": 0.19994764483162172
+  },
+  "income_shares": {
+    "Q1": 0.05108266140593684,
+    "Q2": 0.09802723933359457,
+    "Q3": 0.14605797509106605,
+    "Q4": 0.2185617995451566,
+    "Q5": 0.48627032462424596
+  },
+  "consumption_shares": {
+    "Q1": 0.0711147965768238,
+    "Q2": 0.11788247881974516,
+    "Q3": 0.16091336170366774,
+    "Q4": 0.23299369573668496,
+    "Q5": 0.41709566716307833
+  },
+  "group_calibration": {
+    "Q1": {
+      "sample_households": 2020,
+      "weighted_households": 4341269.60070679,
+      "population": 16823075.72961696,
+      "income_total_tl": 937523380921.1066,
+      "labor_proxy_tl": 464255794802.26636,
+      "capital_proxy_tl": 174768398866.01172,
+      "consumption_annualized_tl": 1049833287686.7502,
+      "population_share": 0.1999660089703155,
+      "income_share": 0.05108266140593684,
+      "consumption_share": 0.0711147965768238,
+      "labor_share": 0.042206570464269115,
+      "capital_share": 0.038023613641203616,
+      "consumption_goods0": 1041313151.1265323,
+      "product_tax0": 99304313.2807827,
+      "consumption_budget0": 1140617464.407315,
+      "labor0": 327333707.21720314,
+      "capital0": 633449250.9187626,
+      "income0": 1247177058.8670828,
+      "direct_tax0": 90010363.25850844,
+      "reconciliation0": 286394100.7311171,
+      "disposable_income0": 1157166695.6085744,
+      "saving0": 16549231.201259375,
+      "direct_tax_rate0": 0.07217127882409297,
+      "saving_rate_disposable0": 0.014301510114371068
+    },
+    "Q2": {
+      "sample_households": 2171,
+      "weighted_households": 5016959.97980793,
+      "population": 16820615.91058236,
+      "income_total_tl": 1799100248753.153,
+      "labor_proxy_tl": 937314697225.2511,
+      "capital_proxy_tl": 398313409578.08844,
+      "consumption_annualized_tl": 1740241922316.4727,
+      "population_share": 0.19993677054786269,
+      "income_share": 0.09802723933359457,
+      "consumption_share": 0.11788247881974516,
+      "labor_share": 0.08521345184820407,
+      "capital_share": 0.08665934626727949,
+      "consumption_goods0": 1726118633.4096942,
+      "product_tax0": 164610449.16841185,
+      "consumption_budget0": 1890729082.578106,
+      "labor0": 660874238.0966702,
+      "capital0": 1443689663.3788805,
+      "income0": 2393323305.3265176,
+      "direct_tax0": 172729203.5849199,
+      "reconciliation0": 288759403.85096693,
+      "disposable_income0": 2220594101.7415977,
+      "saving0": 329865019.1634917,
+      "direct_tax_rate0": 0.07217127882409298,
+      "saving_rate_disposable0": 0.14854809301023575
+    },
+    "Q3": {
+      "sample_households": 2207,
+      "weighted_households": 5178277.957828829,
+      "population": 16835830.6028818,
+      "income_total_tl": 2680611441320.7266,
+      "labor_proxy_tl": 1497729023740.483,
+      "capital_proxy_tl": 644303674311.4841,
+      "consumption_annualized_tl": 2375485998439.085,
+      "population_share": 0.20011761864875274,
+      "income_share": 0.14605797509106605,
+      "consumption_share": 0.16091336170366774,
+      "labor_share": 0.1361620173288467,
+      "capital_share": 0.14017839688747175,
+      "consumption_goods0": 2356207256.432165,
+      "product_tax0": 224698538.85362276,
+      "consumption_budget0": 2580905795.285788,
+      "labor0": 1056006622.2901597,
+      "capital0": 2335283051.770226,
+      "income0": 3565987965.0864606,
+      "direct_tax0": 257361911.71161488,
+      "reconciliation0": 174698291.0260749,
+      "disposable_income0": 3308626053.3748455,
+      "saving0": 727720258.0890574,
+      "direct_tax_rate0": 0.07217127882409298,
+      "saving_rate_disposable0": 0.21994636031677633
+    },
+    "Q4": {
+      "sample_households": 2310,
+      "weighted_households": 5726163.31316499,
+      "population": 16828623.916169573,
+      "income_total_tl": 4011278809877.397,
+      "labor_proxy_tl": 2396014905661.925,
+      "capital_proxy_tl": 986787989885.9226,
+      "consumption_annualized_tl": 3439573047801.511,
+      "population_share": 0.20003195700144727,
+      "income_share": 0.2185617995451566,
+      "consumption_share": 0.23299369573668496,
+      "labor_share": 0.21782726910782219,
+      "capital_share": 0.21469124576673826,
+      "consumption_goods0": 3411658489.9190025,
+      "product_tax0": 325351123.3613446,
+      "consumption_budget0": 3737009613.280347,
+      "labor0": 1689362740.1076148,
+      "capital0": 3576619784.0382705,
+      "income0": 5336160153.663125,
+      "direct_tax0": 385117502.3000362,
+      "reconciliation0": 70177629.51724005,
+      "disposable_income0": 4951042651.363089,
+      "saving0": 1214033038.0827417,
+      "direct_tax_rate0": 0.07217127882409297,
+      "saving_rate_disposable0": 0.24520754991850094
+    },
+    "Q5": {
+      "sample_households": 2603,
+      "weighted_households": 6868103.34058062,
+      "population": 16821530.760561742,
+      "income_total_tl": 8924550644699.64,
+      "labor_proxy_tl": 5704295110817.952,
+      "capital_proxy_tl": 2392138716808.763,
+      "consumption_annualized_tl": 6157381257002.958,
+      "population_share": 0.19994764483162172,
+      "income_share": 0.48627032462424596,
+      "consumption_share": 0.41709566716307833,
+      "labor_share": 0.5185906912508578,
+      "capital_share": 0.5204473974373071,
+      "consumption_goods0": 6107409771.264885,
+      "product_tax0": 582430110.1005738,
+      "consumption_budget0": 6689839881.3654585,
+      "labor0": 4021938092.297328,
+      "capital0": 8670323056.618507,
+      "income0": 11872231723.790434,
+      "direct_tax0": 856834146.0019214,
+      "reconciliation0": -820029425.1254015,
+      "disposable_income0": 11015397577.788513,
+      "saving0": 4325557696.423055,
+      "direct_tax_rate0": 0.07217127882409298,
+      "saving_rate_disposable0": 0.3926828483381412
+    }
+  },
+  "source_files": [
+    {
+      "file": "SAM_2023_64_sectors.xlsx",
+      "sha256": "289f702d8aa0552de90d3814c50290e4d84ca109f9e76f9af599076db16f2c8c",
+      "bytes": 98009
+    },
+    {
+      "file": "hane_cd_2024.csv",
+      "sha256": "a38aa13ca8f05a8c0894294f1b3ba52cb2610dc4077fd87382e2db6239e1f770",
+      "bytes": 3293669
+    },
+    {
+      "file": "fert_cd_2024.csv",
+      "sha256": "96c66dfa33c4da753155cb2277a02c47f716d008daa2b613c9a916b1302cd561",
+      "bytes": 4179060
+    },
+    {
+      "file": "tuketim_cd_2024.csv",
+      "sha256": "2fbbe9017094d9fd1d4035885260056f6308225a885c8c0b70dddcebc4800abe",
+      "bytes": 10789581
+    },
+    {
+      "file": "hbs_madde_tanim.csv",
+      "sha256": "cba8cf3985437a2629d44f70583a679860087c30f6d1be14b64dee707e18e99c",
+      "bytes": 27217
+    }
+  ],
+  "checks": [
+    {
+      "check": "Source SAM row-column balances",
+      "max_absolute_difference": 8.96453857421875e-05,
+      "tolerance": 0.001,
+      "passed": true
+    },
+    {
+      "check": "Person roster matches household size",
+      "max_absolute_difference": 0.0,
+      "tolerance": 0,
+      "passed": true
+    },
+    {
+      "check": "Consumption records match HARCAMA totals (TRY)",
+      "max_absolute_difference": 1.1641532182693481e-10,
+      "tolerance": 0.1,
+      "passed": true
+    },
+    {
+      "check": "Groups preserve the represented population",
+      "max_absolute_difference": 0.0,
+      "tolerance": 1e-05,
+      "passed": true
+    },
+    {
+      "check": "population_share sum",
+      "max_absolute_difference": 0.0,
+      "tolerance": 1e-12,
+      "passed": true
+    },
+    {
+      "check": "income_share sum",
+      "max_absolute_difference": 0.0,
+      "tolerance": 1e-12,
+      "passed": true
+    },
+    {
+      "check": "consumption_share sum",
+      "max_absolute_difference": 0.0,
+      "tolerance": 1e-12,
+      "passed": true
+    },
+    {
+      "check": "labor_share sum",
+      "max_absolute_difference": 2.220446049250313e-16,
+      "tolerance": 1e-12,
+      "passed": true
+    },
+    {
+      "check": "capital_share sum",
+      "max_absolute_difference": 2.220446049250313e-16,
+      "tolerance": 1e-12,
+      "passed": true
+    },
+    {
+      "check": "COICOP totals match group consumption (TRY)",
+      "max_absolute_difference": 0.002197265625,
+      "tolerance": 0.1,
+      "passed": true
+    },
+    {
+      "check": "RAS sector consumption margins",
+      "max_absolute_difference": 4.0531158447265625e-06,
+      "tolerance": 0.001,
+      "passed": true
+    },
+    {
+      "check": "RAS group consumption margins",
+      "max_absolute_difference": 1.430511474609375e-06,
+      "tolerance": 0.001,
+      "passed": true
+    },
+    {
+      "check": "Total tax-inclusive consumption",
+      "max_absolute_difference": 0.0,
+      "tolerance": 0.001,
+      "passed": true
+    },
+    {
+      "check": "Total labour income",
+      "max_absolute_difference": 9.5367431640625e-07,
+      "tolerance": 0.001,
+      "passed": true
+    },
+    {
+      "check": "Total capital income",
+      "max_absolute_difference": 3.814697265625e-06,
+      "tolerance": 0.001,
+      "passed": true
+    },
+    {
+      "check": "Net income reconciliation total",
+      "max_absolute_difference": 2.5033950805664062e-06,
+      "tolerance": 0.001,
+      "passed": true
+    },
+    {
+      "check": "Total direct tax",
+      "max_absolute_difference": 0.0,
+      "tolerance": 0.001,
+      "passed": true
+    },
+    {
+      "check": "Source private saving total",
+      "max_absolute_difference": 9.5367431640625e-07,
+      "tolerance": 0.001,
+      "passed": true
+    },
+    {
+      "check": "HBS disposable-income share bridge",
+      "max_absolute_difference": 0.0,
+      "tolerance": 0.001,
+      "passed": true
+    },
+    {
+      "check": "Final SAM: 78 account balances",
+      "max_absolute_difference": 8.7738037109375e-05,
+      "tolerance": 0.001,
+      "passed": true
+    },
+    {
+      "check": "Non-household source cells preserved",
+      "max_absolute_difference": 0.0,
+      "tolerance": 0,
+      "passed": true
+    },
+    {
+      "check": "Group aggregation recovers the source SAM",
+      "max_absolute_difference": 4.0531158447265625e-06,
+      "tolerance": 0.001,
+      "passed": true
+    },
+    {
+      "check": "Net income recovered from SAM cells",
+      "max_absolute_difference": 1.9073486328125e-06,
+      "tolerance": 0.001,
+      "passed": true
+    },
+    {
+      "check": "Investment financing preserved",
+      "max_absolute_difference": 8.7738037109375e-05,
+      "tolerance": 0.001,
+      "passed": true
+    },
+    {
+      "check": "Saved Excel cells",
+      "max_absolute_difference": 4.76837158203125e-07,
+      "tolerance": 0.001,
+      "passed": true
+    },
+    {
+      "check": "Saved Excel account balances",
+      "max_absolute_difference": 8.58306884765625e-05,
+      "tolerance": 0.001,
+      "passed": true
+    },
+    {
+      "check": "CSV cells",
+      "max_absolute_difference": 9.5367431640625e-07,
+      "tolerance": 0.0001,
+      "passed": true
+    }
+  ],
+  "output_files": [
+    {
+      "file": "SAM_2023_64_sectors_5_households.xlsx",
+      "sha256": "1f560298dc5894923fc950629345e1d46604a64943c0f5d9dd4194b3119ca4a8"
+    },
+    {
+      "file": "SAM_2023_64_sectors_5_households.csv",
+      "sha256": "96bc9bd161c3cbcd4487399b9e87af36e8852eac6cb283bf580ffe8de1c76e73"
+    }
+  ],
+  "versions": {
+    "python": "3.14.3",
+    "numpy": "2.4.3",
+    "pandas": "3.0.1",
+    "openpyxl": "3.1.5"
+  },
+  "assumptions": {
+    "institution": "Source representative private-sector HOH scope retained; aggregate D.5 unchanged.",
+    "transfers": "HH_REC is zero-net accounting reconciliation, not observed government assistance.",
+    "final_taxes": "Aggregate household CTAX allocated by consumption shares; no sector tax rates imputed.",
+    "saving": "Residual; signed values retained.",
+    "sector_scope": "All 64 source sectors retained.",
+    "model_income": "LAB + CAP + HH_REC receipts - HH_REC payments; subtract DTAX for disposable income.",
+    "raw_microdata_copied_to_datas": false,
+    "raw_microdata_written_to_outputs": false
+  }
+}

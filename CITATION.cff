@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "Please cite this analysis repository and the associated article when using the code or outputs."
+type: software
+title: "Food–Energy Targeting: CGE–Microsimulation and Pareto-Efficient Coverage Design"
+version: 1.0.0
+date-released: 2026-10-30
+authors:
+  - family-names: "İnce"
+    given-names: "Muhammet Rıdvan"
+    orcid: "https://orcid.org/0000-0003-2050-2545"
+repository-code: "https://github.com/MuhammetRidvanInce/food-energy-targeting-cge-microsimulation"
+license: MIT

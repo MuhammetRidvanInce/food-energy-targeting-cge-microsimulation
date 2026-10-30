@@ -1,0 +1,10 @@
+[
+  {
+    "file": "../1_input_output/analysis/outputs/I_industry_io_tables_2023.xlsx",
+    "generated_upstream": true
+  },
+  {
+    "file": "datas/TurkStat_institutional_accounts_2023_release_2025.xlsx",
+    "sha256": "a8097fa06f72afa1047b3635a52b78682d5190569f4490f72b0abd13a55ee4d5"
+  }
+]

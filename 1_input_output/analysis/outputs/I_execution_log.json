@@ -1,0 +1,52 @@
+{
+  "analysis": "analysis",
+  "year": 2023,
+  "unit": "thousand TRY",
+  "numpy": "2.4.3",
+  "pandas": "3.0.1",
+  "checks": [
+    {
+      "Check": "Market-share column sums",
+      "Maximum absolute difference": 5.551115123125783e-16,
+      "Passed": true
+    },
+    {
+      "Check": "Domestic product balance",
+      "Maximum absolute difference": 3.68952751159668e-05,
+      "Passed": true
+    },
+    {
+      "Check": "Domestic industry sales = output",
+      "Maximum absolute difference": 3.674626350402832e-05,
+      "Passed": true
+    },
+    {
+      "Check": "Domestic industry costs = output",
+      "Maximum absolute difference": 2.86102294921875e-06,
+      "Passed": true
+    },
+    {
+      "Check": "Imported intermediate use preserved",
+      "Maximum absolute difference": 2.384185791015625e-07,
+      "Passed": true
+    },
+    {
+      "Check": "Imported final use preserved",
+      "Maximum absolute difference": 2.384185791015625e-07,
+      "Passed": true
+    },
+    {
+      "Check": "Total sales = output + imports",
+      "Maximum absolute difference": 3.6776065826416016e-05,
+      "Passed": true
+    }
+  ],
+  "outputs": [
+    "I_D_market_shares_2023.xlsx",
+    "I_Bd_domestic_intermediate_2023.xlsx",
+    "I_Bm_imported_intermediate_2023.xlsx",
+    "I_Fd_domestic_final_demand_2023.xlsx",
+    "I_Fm_imported_final_demand_2023.xlsx",
+    "I_industry_io_tables_2023.xlsx"
+  ]
+}

@@ -1,0 +1,5 @@
+policy_a,policy_b,difference_pp,lower95_pp,upper95_pp,replications
+perfect_targeting,universal_cash,-0.510663538374,-0.538382687377,-0.485222647362,1000
+pmt,universal_cash,-0.387662911811,-0.416305615757,-0.360850646195,1000
+universal_cash,price_support,-0.108583875894,-0.118459671965,-0.0987867466682,1000
+pmt,price_support,-0.496246787705,-0.53263457791,-0.461115696017,1000

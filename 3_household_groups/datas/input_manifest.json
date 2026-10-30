@@ -1,0 +1,32 @@
+{
+  "copied_on": "2026-10-25",
+  "sam_year": 2023,
+  "survey_year": 2024,
+  "files": [
+    {
+      "file": "SAM_2023_64_sectors.xlsx",
+      "sha256": "289f702d8aa0552de90d3814c50290e4d84ca109f9e76f9af599076db16f2c8c",
+      "bytes": 98009
+    },
+    {
+      "file": "hane_cd_2024.csv",
+      "sha256": "a38aa13ca8f05a8c0894294f1b3ba52cb2610dc4077fd87382e2db6239e1f770",
+      "bytes": 3293669
+    },
+    {
+      "file": "fert_cd_2024.csv",
+      "sha256": "96c66dfa33c4da753155cb2277a02c47f716d008daa2b613c9a916b1302cd561",
+      "bytes": 4179060
+    },
+    {
+      "file": "tuketim_cd_2024.csv",
+      "sha256": "2fbbe9017094d9fd1d4035885260056f6308225a885c8c0b70dddcebc4800abe",
+      "bytes": 10789581
+    },
+    {
+      "file": "hbs_madde_tanim.csv",
+      "sha256": "cba8cf3985437a2629d44f70583a679860087c30f6d1be14b64dee707e18e99c",
+      "bytes": 27217
+    }
+  ]
+}

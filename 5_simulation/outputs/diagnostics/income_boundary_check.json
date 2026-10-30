@@ -1,0 +1,18 @@
+{
+  "flagged_cases": [
+    {
+      "case": "energy_only",
+      "policy": "shock",
+      "negative_households": 1,
+      "affected_population_pct": 0.006185607495628549,
+      "minimum_real_equivalent_income_hbs_tl": -14.263052617950672,
+      "poverty_line_hbs_tl": 154980.71368421052,
+      "original_fgt1_pct": 7.873837172800374,
+      "zero_floor_fgt1_pct": 7.873836603531831,
+      "zero_floor_difference_pp": -5.692685434155464e-07,
+      "note": "Factor-indexed micro reconciliation residual; all policy cases retain nonnegative disposable income"
+    }
+  ],
+  "policy_cases_with_negative_income": 0,
+  "interpretation": "Zero-floor sensitivity is reported separately; original accounting-consistent incomes remain in the analysis"
+}

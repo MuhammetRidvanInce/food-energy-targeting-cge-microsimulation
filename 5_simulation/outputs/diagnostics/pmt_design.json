@@ -1,0 +1,50 @@
+{
+  "folds": 5,
+  "seed": 20261025,
+  "alpha": 10,
+  "weighted_oof_r2": 0.5198488703592312,
+  "categorical_features": [
+    "HH_TIP_HBA",
+    "KONUT_TIP",
+    "MULKIYET",
+    "ISITMA_SISTEM",
+    "YAKIT_TUR",
+    "BANYO",
+    "TUVALET",
+    "BORULU_SU_SISTEM",
+    "DOGALGAZ",
+    "BILGISAYAR_SAHIP",
+    "INTERNET_SAHIP",
+    "BULASIK_MAKINE_SAHIP",
+    "CAMASIR_KURUTMA_SAHIP",
+    "KLIMA_SAHIP",
+    "GARAJ",
+    "MUSKONUT_SAHIPLIGI",
+    "APARTMAN_SAHIPLIGI",
+    "YAZLIK_SAHIPLIGI",
+    "first_member_education"
+  ],
+  "numeric_features": [
+    "HHB",
+    "ODA_SAYI",
+    "KONUT_ALAN",
+    "CEP_TELEFON_SAYI",
+    "OTOMOBIL_SAYI",
+    "MOTOSIKLET_SAYI",
+    "children",
+    "older",
+    "adults"
+  ],
+  "exclusion": 0.27470538611380024,
+  "leakage": 0.27470538611380185,
+  "coverage": 0.3999027795181791,
+  "group_cash_shares": [
+    0.43124332701223345,
+    0.29405128687396387,
+    0.17164427439648,
+    0.08011797657127752,
+    0.02294313514604444
+  ],
+  "method": "Household-level out-of-fold ridge, person-weighted log1p equivalent income; fold-local preprocessing",
+  "interpretation": "Within-survey validation; geographic and administrative transportability require external validation"
+}

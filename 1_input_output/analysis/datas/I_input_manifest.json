@@ -1,0 +1,22 @@
+[
+  {
+    "file": "I_supply_2023.xlsx",
+    "sha256": "2cff1668e57d8e87b3a71858267bab1d7d018aaf4639f5d9774ac42cfe6e83c2",
+    "bytes": 65014
+  },
+  {
+    "file": "I_domestic_use_2023.xlsx",
+    "sha256": "d9cdb52871d5d16ec39074524e86b0ed84865b0303cc9d233ec7fea16d3b488c",
+    "bytes": 83562
+  },
+  {
+    "file": "I_import_use_2023.xlsx",
+    "sha256": "fd1d82f36f2277c41665b7f9b14c0447b9aa55be01a34607b4289e1e70ba827c",
+    "bytes": 61906
+  },
+  {
+    "file": "I_product_industry_mapping.xlsx",
+    "sha256": "315acca077b56c1aa4d5d8632276040a2037c7185810f5114ad5439ce57df042",
+    "bytes": 19700
+  }
+]

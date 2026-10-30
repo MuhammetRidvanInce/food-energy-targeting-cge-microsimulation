@@ -1,0 +1,19 @@
+# Confidential TurkStat records and record-level derivatives
+**/hane_cd_*.csv
+**/fert_cd_*.csv
+**/tuketim_cd_*.csv
+**/hbs_madde_tanim.csv
+**/*microdata*
+**/*household_records*
+**/*.parquet
+**/*.pkl
+**/*.pickle
+**/*.npz
+**/*.npy
+**/*.dta
+**/*.sav
+**/.env*
+**/__pycache__/
+**/.ipynb_checkpoints/
+**/*.pyc
+.venv/
