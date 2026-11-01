@@ -1,48 +1,30 @@
 {
   "status": "passed",
-  "csv_files": 28,
-  "workbooks": 59,
+  "csv_files": 39,
+  "workbooks": 61,
   "sector_count": 64,
   "sam_accounts": 78,
   "elasticity_values": 192,
-  "supplementary_tables": 18,
+  "supplementary_tables": 19,
   "main_figures": 7,
   "supplementary_figures": 7,
   "raw_microdata_included": false,
   "notebook_outputs_included": false,
   "local_absolute_paths_found": false,
-  "language": "English",
-  "original_provider_identifiers_preserved": true,
-  "fixed_SAM_numerically_identical": true,
-  "elasticities_numerically_identical": true,
-  "preparation_stages_rerun": [
-    1,
-    2,
-    3
-  ],
-  "all_stage5_imports_passed": true,
-  "aggregate_figure_regeneration_count": 14,
-  "main_policy_replication": {
-    "perfect_targeting": {
-      "fgt1_pct": 7.214569213694693,
-      "max_fgt_difference_pp": 6.870948254800169e-12,
-      "sam_gap_trillion_tl": 4.438822642782725e-10
-    },
-    "pmt": {
-      "fgt1_pct": 7.337569840257834,
-      "max_fgt_difference_pp": 3.979039320256561e-11,
-      "sam_gap_trillion_tl": 3.5984282220624664e-10
-    },
-    "universal_cash": {
-      "fgt1_pct": 7.725232752068432,
-      "max_fgt_difference_pp": 1.3180567748349858e-11,
-      "sam_gap_trillion_tl": 1.8684609415231535e-10
-    },
-    "price_support": {
-      "fgt1_pct": 7.833816627962551,
-      "max_fgt_difference_pp": 1.7703172261462896e-11,
-      "sam_gap_trillion_tl": 4.973799150320701e-14
+  "version": "2.0.0",
+  "consumption": "nested CES; upper 0.25, food 0.50, energy 0.40, other 0.50",
+  "macro_benchmark": "passed; optimal termination",
+  "authorised_microdata_test": {
+    "date": "2026-11-01",
+    "passed": true,
+    "restricted_inputs_included": false,
+    "description": "The four main policies were re-solved using externally held authorised survey records; FGT0, FGT1 and FGT2 match the stored results.",
+    "maximum_fgt_difference_percentage_points": 4.849098900194804e-11,
+    "fgt1_percent": {
+      "perfect_targeting": 7.220856983793082,
+      "pmt": 7.343969389567907,
+      "universal_cash": 7.731657538654853,
+      "price_support": 7.8358952131325035
     }
-  },
-  "full_coverage_search_rerun_for_this_packaging": false
+  }
 }

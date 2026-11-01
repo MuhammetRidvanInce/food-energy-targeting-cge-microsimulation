@@ -11,14 +11,14 @@
     "inclusion_error": 10.985544745552396,
     "correct_exclusion": 49.02417730262978
   },
-  "price_support_benefit_trillion_tl": 0.13733955887599997,
-  "price_support_unreconciled_trillion_tl": 0.13743281512275735,
-  "price_support_proportional_reconciliation_factor": 0.999321441195292,
-  "price_support_cost_table2_trillion_tl": 0.137339558876,
+  "price_support_benefit_trillion_tl": 0.13598135376100004,
+  "price_support_unreconciled_trillion_tl": 0.13618925325569722,
+  "price_support_proportional_reconciliation_factor": 0.9984734515409459,
+  "price_support_cost_table2_trillion_tl": 0.135981353761,
   "cash_total_check": {
-    "perfect_targeting": 0.13067475456016792,
-    "pmt": 0.13059094974215454,
-    "universal_cash": 0.13040656095660164
+    "perfect_targeting": 0.1308130416233191,
+    "pmt": 0.13072035996791093,
+    "universal_cash": 0.13051400341152575
   },
   "fgt1_reproduction": [
     {
@@ -29,38 +29,38 @@
     },
     {
       "policy": "shock",
-      "fgt1_recomputed": 8.072653940991954,
-      "fgt1_table1": 8.07265394099,
-      "abs_gap": 1.9539925233402755e-12
+      "fgt1_recomputed": 8.078815079750362,
+      "fgt1_table1": 8.07881507975,
+      "abs_gap": 3.623767952376511e-13
     },
     {
       "policy": "perfect_targeting",
-      "fgt1_recomputed": 7.214569213694694,
-      "fgt1_table1": 7.21456921369,
-      "abs_gap": 4.694022948115162e-12
+      "fgt1_recomputed": 7.220856983793081,
+      "fgt1_table1": 7.22085698379,
+      "abs_gap": 3.0810909379397344e-12
     },
     {
       "policy": "pmt",
-      "fgt1_recomputed": 7.337569840257833,
-      "fgt1_table1": 7.33756984026,
-      "abs_gap": 2.1662671656486054e-12
+      "fgt1_recomputed": 7.343969389567906,
+      "fgt1_table1": 7.34396938957,
+      "abs_gap": 2.093436535233195e-12
     },
     {
       "policy": "universal_cash",
-      "fgt1_recomputed": 7.7252327520684325,
-      "fgt1_table1": 7.72523275207,
-      "abs_gap": 1.567634910770721e-12
+      "fgt1_recomputed": 7.731657538654854,
+      "fgt1_table1": 7.73165753865,
+      "abs_gap": 4.853895063661184e-12
     },
     {
       "policy": "price_support",
-      "fgt1_recomputed": 7.833816627962549,
-      "fgt1_table1": 7.83381662796,
-      "abs_gap": 2.5490720645393594e-12
+      "fgt1_recomputed": 7.835895213132504,
+      "fgt1_table1": 7.83589521313,
+      "abs_gap": 2.504663143554353e-12
     }
   ],
   "bins": 20,
   "households": 11311,
-  "cpi_decomposition": "Log price-index contributions proportionally converted to percentage-point components; accounting decomposition of the same equilibrium",
+  "cpi_decomposition": "Integrated CES log-price-path contributions proportionally converted to percentage-point components; accounting decomposition of the same equilibrium",
   "histogram_display_population_pct": 99.43150534761875,
   "histogram_range": [
     9.0,
@@ -69,9 +69,9 @@
   "histogram_tail_folding": true,
   "score_histogram_tail_folding": "below 0.1 and above 99.9 sample percentiles; end bins retain tail mass",
   "input_hashes": {
-    "C:\\Users\\muham\\Desktop\\AcademicResearches\\2-Approved-Preparing\\food-energy-targeting\\5_simulation\\outputs\\equilibria\\main_equilibria.json": "06164d06ea91e5cc4552e465d28845723e503ee86269460035515e74eed4aeac",
-    "C:\\Users\\muham\\Desktop\\AcademicResearches\\2-Approved-Preparing\\food-energy-targeting\\5_simulation\\outputs\\tables\\main\\Table1_main_policy_results.csv": "d3724751aeea9e6687230430f497feab5ce135894e2561a094911a692e10a6c9",
-    "C:\\Users\\muham\\Desktop\\AcademicResearches\\2-Approved-Preparing\\food-energy-targeting\\5_simulation\\outputs\\tables\\main\\Table2_main_macro_results.csv": "75537241edb967a036140eded22c96a969ed5eaf1fdd20c47d0a7484ccc0e000"
+    "PROJECT/5_simulation/outputs/equilibria/main_equilibria.json": "2424014f02f3cc1792b5c2860e37bf9db97e5a235dac6d88f4d29f7aae646d66",
+    "PROJECT/5_simulation/outputs/tables/main/Table1_main_policy_results.csv": "40e49301de332f3c0ab0ad28a67b98cbaed625da4f0ddc833f0a4dffc3a5d1e1",
+    "PROJECT/5_simulation/outputs/tables/main/Table2_main_macro_results.csv": "443dfef5f7224f929948f8f4f2879c9cf234f91c55096dcdb08a33b934cdefc4"
   },
   "note": "Aggregated profiles only; household records are not exported."
 }

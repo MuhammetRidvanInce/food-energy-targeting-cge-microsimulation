@@ -36,14 +36,14 @@ def main():
     assert bm.sam.shape==(78,78) and el.shape[0]==64
     p=ROOT/'5_simulation/outputs/tables/main/Table1_main_policy_results.csv'
     results=pd.read_csv(p).set_index('policy')
-    assert abs((results.loc['pmt','fgt1_pct']-results.loc['universal_cash','fgt1_pct'])+.38775)<.001
+    assert abs((results.loc['pmt','fgt1_pct']-results.loc['universal_cash','fgt1_pct'])+.387688149)<1e-7
     sup=ROOT/'publication_tables/supplementary'
-    assert len(list(sup.glob('*.xlsx')))==18
+    assert len(list(sup.glob('*.xlsx')))==19
     for i in range(1,8):
         assert (ROOT/f'5_simulation/outputs/figures/main/fig{i}.png').exists()
         assert (ROOT/f'5_simulation/outputs/figures/supplementary/figS{i}.png').exists()
     report={'status':'passed','csv_files':csv_count,'workbooks':spreadsheet_count,'sector_count':64,'sam_accounts':78,
-            'elasticity_values':192,'supplementary_tables':18,'main_figures':7,'supplementary_figures':7,
+            'elasticity_values':192,'supplementary_tables':19,'main_figures':7,'supplementary_figures':7,
             'raw_microdata_included':False,'notebook_outputs_included':False,'local_absolute_paths_found':False}
     print(json.dumps(report,indent=2))
     return report

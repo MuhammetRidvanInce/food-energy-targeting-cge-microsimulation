@@ -1,0 +1,916 @@
+{
+  "version": "nested-ces-2.0.0-2026-11-01",
+  "microdata_included": false,
+  "files": [
+    {
+      "path": ".gitattributes",
+      "bytes": 9,
+      "sha256": "8b9c3028d6467ff3be7c793141927841d70f47f52d0590677438f488ca154992"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 329,
+      "sha256": "6f86c2b9594e4897464a67a41757040e1d45aaebb1f24cee799bc2e13ec39ddd"
+    },
+    {
+      "path": "1_input_output/analysis/codes/supply_use_to_input_output.ipynb",
+      "bytes": 14732,
+      "sha256": "33e512393005ff585103a4e2a38e714603db0a7b69a7046fedd219d53312974a"
+    },
+    {
+      "path": "1_input_output/analysis/datas/I_domestic_use_2023.xlsx",
+      "bytes": 75536,
+      "sha256": "d9cdb52871d5d16ec39074524e86b0ed84865b0303cc9d233ec7fea16d3b488c"
+    },
+    {
+      "path": "1_input_output/analysis/datas/I_import_use_2023.xlsx",
+      "bytes": 55469,
+      "sha256": "fd1d82f36f2277c41665b7f9b14c0447b9aa55be01a34607b4289e1e70ba827c"
+    },
+    {
+      "path": "1_input_output/analysis/datas/I_input_manifest.json",
+      "bytes": 622,
+      "sha256": "4a333c8f3bf5cfa83175c073213e40e92fc9e3122b80bb4c9962cc3593154a23"
+    },
+    {
+      "path": "1_input_output/analysis/datas/I_product_industry_mapping.xlsx",
+      "bytes": 15275,
+      "sha256": "315acca077b56c1aa4d5d8632276040a2037c7185810f5114ad5439ce57df042"
+    },
+    {
+      "path": "1_input_output/analysis/datas/I_supply_2023.xlsx",
+      "bytes": 57175,
+      "sha256": "2cff1668e57d8e87b3a71858267bab1d7d018aaf4639f5d9774ac42cfe6e83c2"
+    },
+    {
+      "path": "1_input_output/analysis/outputs/I_Bd_domestic_intermediate_2023.xlsx",
+      "bytes": 57224,
+      "sha256": "48e630993ff1d5b7e8e44bb507f984983ce183ad2fd5c40ce172412721b16496"
+    },
+    {
+      "path": "1_input_output/analysis/outputs/I_Bm_imported_intermediate_2023.xlsx",
+      "bytes": 56452,
+      "sha256": "ce6b32a51536a16fb06a50712c7f7d1a93fed6e28e8c911e5fe3a2dca65e2f3d"
+    },
+    {
+      "path": "1_input_output/analysis/outputs/I_D_market_shares_2023.xlsx",
+      "bytes": 34330,
+      "sha256": "b8da042ff421f6121d9db65a70f84eab8c808dd4bd39bdb649a904c51c8a49e7"
+    },
+    {
+      "path": "1_input_output/analysis/outputs/I_Fd_domestic_final_demand_2023.xlsx",
+      "bytes": 9165,
+      "sha256": "1aa640280ad20f7ed7064f37d2c3ab35bee1626fa6f85ffb4ad80f19a7c071de"
+    },
+    {
+      "path": "1_input_output/analysis/outputs/I_Fm_imported_final_demand_2023.xlsx",
+      "bytes": 8877,
+      "sha256": "0ae43f3cbc7907af3ab5d9d0c2c08d7d2206091523c164baaa7054b2c3068106"
+    },
+    {
+      "path": "1_input_output/analysis/outputs/I_execution_log.json",
+      "bytes": 1443,
+      "sha256": "7f9967ed3b1a9e7e257e62f40fa8d84feb6f34193de4856348524099b3f85de6"
+    },
+    {
+      "path": "1_input_output/analysis/outputs/I_industry_io_tables_2023.xlsx",
+      "bytes": 193052,
+      "sha256": "f1c80579f788ce83fba6dda550e7620d6bc2320843f67d001dbbc6dd5edd53a7"
+    },
+    {
+      "path": "2_social_accounting_matrix/codes/construct_social_accounting_matrix.ipynb",
+      "bytes": 27049,
+      "sha256": "9b01d882c8032c7cf83bb9b818f08246bc4ae08c61b3627a74b70e3b5d2f5cf6"
+    },
+    {
+      "path": "2_social_accounting_matrix/datas/TurkStat_institutional_accounts_2023_release_2025.xlsx",
+      "bytes": 14439,
+      "sha256": "a8097fa06f72afa1047b3635a52b78682d5190569f4490f72b0abd13a55ee4d5"
+    },
+    {
+      "path": "2_social_accounting_matrix/datas/direct_taxes_2023.csv",
+      "bytes": 882,
+      "sha256": "e6c53ac5c3dd06487f8778e7b20eeea18fc6ccc52e801516918c642be0dc8694"
+    },
+    {
+      "path": "2_social_accounting_matrix/datas/input_manifest.json",
+      "bytes": 298,
+      "sha256": "5a44dd11dbde3307466fea2ed70322703cb1f6aa2cef669b2e318702ce57fed4"
+    },
+    {
+      "path": "2_social_accounting_matrix/outputs/SAM_2023_64_sectors.csv",
+      "bytes": 105074,
+      "sha256": "62e597655057d686daad05dd41294d11b7ab43b885cada156ae89e1b18befbdc"
+    },
+    {
+      "path": "2_social_accounting_matrix/outputs/SAM_2023_64_sectors.xlsx",
+      "bytes": 90005,
+      "sha256": "83ab70f622267571e7aca9e51bc5f4d278fb4fe985de5dc9e2f8e3baede1945f"
+    },
+    {
+      "path": "2_social_accounting_matrix/outputs/SAM_2023_transaction_sources.csv",
+      "bytes": 330448,
+      "sha256": "75a655bf582b1d2fa4379c6e040107d618ef18805e5da5d413e1be7229ba35c8"
+    },
+    {
+      "path": "2_social_accounting_matrix/outputs/execution_log.json",
+      "bytes": 5013,
+      "sha256": "ed2468ce70620d5d8d8b3771989a610fd1b7ebc0478cf0e6f4d31a323f371012"
+    },
+    {
+      "path": "3_household_groups/codes/household_disaggregation.ipynb",
+      "bytes": 33980,
+      "sha256": "ecfef7410cf9fc57c00f1d6ac0124614a41ebfc0990b68c7612caf940f1faa99"
+    },
+    {
+      "path": "3_household_groups/datas/RESTRICTED_DATA.md",
+      "bytes": 870,
+      "sha256": "836d228e6e38044aa0125cd36fa46104cfa21e5ef394d33fc4dd7c7c5c7dd4c6"
+    },
+    {
+      "path": "3_household_groups/datas/SAM_2023_64_sectors.xlsx",
+      "bytes": 96870,
+      "sha256": "289f702d8aa0552de90d3814c50290e4d84ca109f9e76f9af599076db16f2c8c"
+    },
+    {
+      "path": "3_household_groups/datas/input_manifest.json",
+      "bytes": 903,
+      "sha256": "299c30a5f4be668b9a8ef94010140c32546383cd6f02f8e38dadfc4812dd6290"
+    },
+    {
+      "path": "3_household_groups/outputs/SAM_2023_64_sectors_5_households.csv",
+      "bytes": 93090,
+      "sha256": "96bc9bd161c3cbcd4487399b9e87af36e8852eac6cb283bf580ffe8de1c76e73"
+    },
+    {
+      "path": "3_household_groups/outputs/SAM_2023_64_sectors_5_households.xlsx",
+      "bytes": 95030,
+      "sha256": "1f560298dc5894923fc950629345e1d46604a64943c0f5d9dd4194b3119ca4a8"
+    },
+    {
+      "path": "3_household_groups/outputs/execution_log.json",
+      "bytes": 13285,
+      "sha256": "3882b4ce179f87b88703798a0b8eab7f45629ac81dda933bcb0dd48c38232ba4"
+    },
+    {
+      "path": "4_cge_model/codes/cge_model.py",
+      "bytes": 38783,
+      "sha256": "8afeb1df008f8f2d6b4ebdaa30984a77ed59aa15b38fe6d5d38673b427135e39"
+    },
+    {
+      "path": "4_cge_model/datas/SAM_2023_64_sectors_5_households.xlsx",
+      "bytes": 99262,
+      "sha256": "2f91330076687fd8e5313526ee84e3f23010ed6231e22fc3531db79d7eb76519"
+    },
+    {
+      "path": "4_cge_model/datas/household_preferences.json",
+      "bytes": 923,
+      "sha256": "5b7d567624edf58e7d36ec4cc557056d29ce71ce02d79d698975adf319084f79"
+    },
+    {
+      "path": "4_cge_model/datas/parameters/selected_elasticities.xlsx",
+      "bytes": 17772,
+      "sha256": "98107f7309d306dafe9ed69be44ee2d09e915ce50c929668edbb6e65d2ebbcd2"
+    },
+    {
+      "path": "5_simulation/codes/common.py",
+      "bytes": 3670,
+      "sha256": "1e4d9053c62cf7217df574dd5811585a65cd8b3b8fdf6a0c063b27074ad75b7d"
+    },
+    {
+      "path": "5_simulation/codes/coverage_publication_outputs.py",
+      "bytes": 24596,
+      "sha256": "61e85a6df625457ab5bdefbe19a2bb6ea361b18f7bfd516dccbb1d65c9fe8735"
+    },
+    {
+      "path": "5_simulation/codes/document_supplementary_tables.py",
+      "bytes": 18864,
+      "sha256": "9be6bee491daf5cece95b09c91f55791c57cc7d70e2bbb64294489ee220e9a68"
+    },
+    {
+      "path": "5_simulation/codes/figure_design.py",
+      "bytes": 51439,
+      "sha256": "fd6a9da16df42e0d094300e31c2fce91dd62078a2f2045282d46bf13d6781cbc"
+    },
+    {
+      "path": "5_simulation/codes/figure_profiles.py",
+      "bytes": 12621,
+      "sha256": "1177bf9d00418e3a3c2736221b3563911951e591f48c94e66f68b17ae37d1608"
+    },
+    {
+      "path": "5_simulation/codes/income_diagnostics.py",
+      "bytes": 3020,
+      "sha256": "cc1646e319c6e1bc2958f746d336e2f4005b6c71914f82276ec3decb54f152cc"
+    },
+    {
+      "path": "5_simulation/codes/micro_simulation.py",
+      "bytes": 16979,
+      "sha256": "ec80b12b14108d97c6498f312dcfdf690da16a9bc0437e0ea4ca8fd3e9259d89"
+    },
+    {
+      "path": "5_simulation/codes/parallel_coverage_refinement.py",
+      "bytes": 4480,
+      "sha256": "ee58422fb8e4c1e73bec8c69d6262fc7a04b9d52560225ba140cc1f493af4e66"
+    },
+    {
+      "path": "5_simulation/codes/parallel_coverage_robustness.py",
+      "bytes": 4508,
+      "sha256": "99b6035a84148d9ce489b26cf9c429278e4036bc43386b5b3795ac79cc09de00"
+    },
+    {
+      "path": "5_simulation/codes/pmt_coverage_competing_minima.py",
+      "bytes": 5547,
+      "sha256": "7c0e39aa16155d983b4999c9ebb51802e7069caac0b8338b8f9b2ecc7deee87a"
+    },
+    {
+      "path": "5_simulation/codes/pmt_coverage_optimization.py",
+      "bytes": 17902,
+      "sha256": "49c91c241fe880ba4f70c8f3182fbc157d24ecea3f8fc74d191ea9636cfd72dd"
+    },
+    {
+      "path": "5_simulation/codes/pmt_coverage_robustness.py",
+      "bytes": 10210,
+      "sha256": "1aa1a1f631a77e5af364674c424b2134641600fbf87eccef22a172e2c0ad6adb"
+    },
+    {
+      "path": "5_simulation/codes/pmt_coverage_sensitivity.py",
+      "bytes": 14135,
+      "sha256": "7443d9aa928a082f5b8e698e662ef697ab554657bcaf314b37141427f960bc72"
+    },
+    {
+      "path": "5_simulation/codes/pmt_coverage_tradeoff.py",
+      "bytes": 15269,
+      "sha256": "b710d337bb0e4a509cedd0fca0d9edd95ae333ff0033f3dddd7b3c48fb414c41"
+    },
+    {
+      "path": "5_simulation/codes/pmt_epsilon_constraint.py",
+      "bytes": 19918,
+      "sha256": "567d2fcec974590cdb507023459ee874616307e40daa068d4487bd4ccc029b70"
+    },
+    {
+      "path": "5_simulation/codes/policy_model.py",
+      "bytes": 6590,
+      "sha256": "36c126d4a2ea0b7fa56ff4030533af8d5a871fdfcf743c8f3cc4a27a001ef1cb"
+    },
+    {
+      "path": "5_simulation/codes/publication_outputs.py",
+      "bytes": 6484,
+      "sha256": "157e7b2f3de2a4fcb28af928b0171093f0df33acd16221139c05eb5c592605b5"
+    },
+    {
+      "path": "5_simulation/codes/refine_coverage_robustness.py",
+      "bytes": 7601,
+      "sha256": "cbf40e111261a68eab1ede76bb62a113caa150bb44871ecec7cb672bab0f895f"
+    },
+    {
+      "path": "5_simulation/codes/run_ces_pipeline.py",
+      "bytes": 2494,
+      "sha256": "18b856e0f3d7a4cdd3b7b6aba3798ae1be4ea3e6e8fa23379a04cbc5f18ca2cd"
+    },
+    {
+      "path": "5_simulation/codes/run_simulations.py",
+      "bytes": 14839,
+      "sha256": "3293bb96d6c9cb3055d4c1eed1d5246a79de95321c0fed8a34c49d8851831f37"
+    },
+    {
+      "path": "5_simulation/codes/summarize_pmt_coverage_optimization.py",
+      "bytes": 9690,
+      "sha256": "811a72802a9b1655d2191471c1c4d8f43ac7709f1e6a549891ff0c8909018a3d"
+    },
+    {
+      "path": "5_simulation/codes/supplementary_catalog.py",
+      "bytes": 1869,
+      "sha256": "4ed38b48461ee8b979331555b3d4d3ad05dbb94e4806461c60e98d222254b98a"
+    },
+    {
+      "path": "5_simulation/codes/supplementary_metadata_en.json",
+      "bytes": 30444,
+      "sha256": "a0d3ce911ec5749eca325bde8d267c3ae29238e0e45420a38a00331877138fb5"
+    },
+    {
+      "path": "5_simulation/codes/validate_coverage_publication.py",
+      "bytes": 7545,
+      "sha256": "7c3b1929a772c30e1d75ba8ee475b49a53a5ddd619fafcacf9476cc55ec2894b"
+    },
+    {
+      "path": "5_simulation/codes/validate_results.py",
+      "bytes": 5640,
+      "sha256": "0532d06075cea9194b41e141e30f13a8d99856a699807fa874da7487ba53df6a"
+    },
+    {
+      "path": "5_simulation/datas/SAM_2023_64_sectors_5_households.xlsx",
+      "bytes": 99262,
+      "sha256": "a181e4ff78990ff6c5d367da2eb739233f2cfb83f479071abd9f0531514108dd"
+    },
+    {
+      "path": "5_simulation/datas/selected_elasticities.xlsx",
+      "bytes": 17772,
+      "sha256": "98107f7309d306dafe9ed69be44ee2d09e915ce50c929668edbb6e65d2ebbcd2"
+    },
+    {
+      "path": "5_simulation/outputs/diagnostics/equilibrium_checks.json",
+      "bytes": 175398,
+      "sha256": "9cb49ea43fb00f5457701d487317a0417751015feab6ce189a8d5f287be586f5"
+    },
+    {
+      "path": "5_simulation/outputs/diagnostics/income_boundary_check.json",
+      "bytes": 758,
+      "sha256": "a9c0825f81cdbe697331892e1968c842166c2427cbecefa81c11e8688f94f3d2"
+    },
+    {
+      "path": "5_simulation/outputs/diagnostics/micro_calibration.json",
+      "bytes": 2068,
+      "sha256": "edb157240cafd6a4a3417c846b6f426c112f12ce0106f8bd0d9d5e67474d1d5a"
+    },
+    {
+      "path": "5_simulation/outputs/diagnostics/pmt_coverage_competing_minima.json",
+      "bytes": 87775,
+      "sha256": "cdb19c215faf3df034c2e07218e5f659cc77b6b3b3c66ac71ae2d052409e41b9"
+    },
+    {
+      "path": "5_simulation/outputs/diagnostics/pmt_coverage_optimization.json",
+      "bytes": 235543,
+      "sha256": "9c13051891cf58af6bdb56e3ec1eb256edabe1ad062446f4b0a2a4c94d087e9f"
+    },
+    {
+      "path": "5_simulation/outputs/diagnostics/pmt_coverage_optimization_final.json",
+      "bytes": 4843,
+      "sha256": "f811b9348fd7683251a8cbca6afb7844ee71ec4d89c9c0c796de67102dfadbbf"
+    },
+    {
+      "path": "5_simulation/outputs/diagnostics/pmt_coverage_robustness.json",
+      "bytes": 1435262,
+      "sha256": "972f5cfde42fe7ffebf4e8f947a3f20b63e65959b0a7b917341be926f79054af"
+    },
+    {
+      "path": "5_simulation/outputs/diagnostics/pmt_coverage_robustness_refined.json",
+      "bytes": 612108,
+      "sha256": "8aa85b70bf595d39860abe8f3717e078f0d7152ff4b4f8621dc3d11e30f1871e"
+    },
+    {
+      "path": "5_simulation/outputs/diagnostics/pmt_design.json",
+      "bytes": 1250,
+      "sha256": "c809d32f40c6639918011ad9a41edb1e5928f9a67f4cfff5c651870c8c1feb22"
+    },
+    {
+      "path": "5_simulation/outputs/diagnostics/run_manifest.json",
+      "bytes": 11430,
+      "sha256": "6560c5df24ba8a7ebaddff4e8b9350e51e1297df4aa2d99d166f0780ea616792"
+    },
+    {
+      "path": "5_simulation/outputs/equilibria/main_equilibria.json",
+      "bytes": 325399,
+      "sha256": "2424014f02f3cc1792b5c2860e37bf9db97e5a235dac6d88f4d29f7aae646d66"
+    },
+    {
+      "path": "5_simulation/outputs/equilibria/pmt_coverage_equilibria.json",
+      "bytes": 379774,
+      "sha256": "80ee3180bc1dff35af07628b54615f46f6cc53c4fc806a6db3af0148c8f7e3ab"
+    },
+    {
+      "path": "5_simulation/outputs/equilibria/pmt_coverage_optimum.json",
+      "bytes": 50227,
+      "sha256": "9fcf366384788a96cbf9167a5f2f55d0ed8ce03077814d76ad204a38d3014c71"
+    },
+    {
+      "path": "5_simulation/outputs/equilibria/pmt_coverage_optimum_final.json",
+      "bytes": 50245,
+      "sha256": "8af3c44735e0700eca3f22546fb0d79b16c9e4ab59ddb0b5a8a8fd424d0dbe27"
+    },
+    {
+      "path": "5_simulation/outputs/equilibria/pmt_coverage_validated_optimum.json",
+      "bytes": 50245,
+      "sha256": "8af3c44735e0700eca3f22546fb0d79b16c9e4ab59ddb0b5a8a8fd424d0dbe27"
+    },
+    {
+      "path": "5_simulation/outputs/equilibria/pmt_epsilon_solutions.json",
+      "bytes": 705890,
+      "sha256": "203cc738c180e535de1ac48033e3e2a1eaac1bfa302e333b691b79514b3e728b"
+    },
+    {
+      "path": "5_simulation/outputs/figures/data/benefit_concentration.csv",
+      "bytes": 265,
+      "sha256": "da1df9c9f69a34b6e578fe419b8735d597aa9a694eabb1dbdd2825f8b8818730"
+    },
+    {
+      "path": "5_simulation/outputs/figures/data/income_bin_profiles.csv",
+      "bytes": 6404,
+      "sha256": "5bd366cef3873018c780be94725d2f8b8f698171f61b7c2bb0841f8aa437f318"
+    },
+    {
+      "path": "5_simulation/outputs/figures/data/pmt_prediction_histogram.csv",
+      "bytes": 77005,
+      "sha256": "52c930af5b1744c703df26a29de1f3309a8c0ae6e63f5c002efc6786ccd90e8e"
+    },
+    {
+      "path": "5_simulation/outputs/figures/data/pmt_score_distribution.csv",
+      "bytes": 5575,
+      "sha256": "e8169a00c228c156e7347ef3dc5d939cf0e517f1e378226e43262f8f3584ac19"
+    },
+    {
+      "path": "5_simulation/outputs/figures/data/profile_metadata.json",
+      "bytes": 2920,
+      "sha256": "1f65de154e4659f15f15f82e7e71d1e7ae2f84d7293e3d64f69382971b38887e"
+    },
+    {
+      "path": "5_simulation/outputs/figures/main/fig1.png",
+      "bytes": 618491,
+      "sha256": "c25f838682ab3ab13b30b10f5d7a0a2e180b31d0ddf7b0fb37bec30660902524"
+    },
+    {
+      "path": "5_simulation/outputs/figures/main/fig2.png",
+      "bytes": 482105,
+      "sha256": "f18af1d601ac8b2262de823713054248a43e3a008c0c1c0a7e5044f408811432"
+    },
+    {
+      "path": "5_simulation/outputs/figures/main/fig3.png",
+      "bytes": 324206,
+      "sha256": "bdcee602b2cda365e2fe35efd19d8061b8c47c7e788f7479250fe6cddb8c0e8d"
+    },
+    {
+      "path": "5_simulation/outputs/figures/main/fig4.png",
+      "bytes": 403325,
+      "sha256": "8bc3863c6cf18937ab7d918817292bcf3b83dae9568710f152832c78d16c9221"
+    },
+    {
+      "path": "5_simulation/outputs/figures/main/fig5.png",
+      "bytes": 597980,
+      "sha256": "7d3e164ad39b953c2e61c13f16ec3e50bcd21dfb94743cdbd2f8b7969affdeb9"
+    },
+    {
+      "path": "5_simulation/outputs/figures/main/fig6.png",
+      "bytes": 161530,
+      "sha256": "21d6b6e825da35134aaae1817f46de6f4bffbe131bcfe221c227dd0423295b48"
+    },
+    {
+      "path": "5_simulation/outputs/figures/main/fig7.png",
+      "bytes": 332440,
+      "sha256": "2e5c065cee9780f05de3e909b04943683c6317967b32791266ffe8a82a3db77c"
+    },
+    {
+      "path": "5_simulation/outputs/figures/supplementary/figS1.png",
+      "bytes": 357918,
+      "sha256": "0269d693877c7e08b11e3ec7c8b746d6475a99d29b96c141fe29aede2303e814"
+    },
+    {
+      "path": "5_simulation/outputs/figures/supplementary/figS2.png",
+      "bytes": 608776,
+      "sha256": "db833f3ec06bc23d2b8f206f454ed949acc08fda4bfda889c999ec421547fe1f"
+    },
+    {
+      "path": "5_simulation/outputs/figures/supplementary/figS3.png",
+      "bytes": 202472,
+      "sha256": "3cb3bc2e014fccd4b2f84f0097bddf6933d518c14cfc58c8a6c329515a2dbbe4"
+    },
+    {
+      "path": "5_simulation/outputs/figures/supplementary/figS4.png",
+      "bytes": 418714,
+      "sha256": "bcc65f2252225adc95b91790411456153684b681f29763dd8c20746f2911264a"
+    },
+    {
+      "path": "5_simulation/outputs/figures/supplementary/figS5.png",
+      "bytes": 304045,
+      "sha256": "8c989e29bc87af961d0db01e62f2281b9f292524ed674a574b7bc0bce07d543f"
+    },
+    {
+      "path": "5_simulation/outputs/figures/supplementary/figS6.png",
+      "bytes": 259147,
+      "sha256": "9b805646cbf7bd7225c80b784fb812c3a71945c0fe44ae43b3b94a0b6345a72f"
+    },
+    {
+      "path": "5_simulation/outputs/figures/supplementary/figS7.png",
+      "bytes": 481131,
+      "sha256": "ea6428492a7bd7c01e3e3693b08f21faeef87f5e1ac9231938802229f3a29daf"
+    },
+    {
+      "path": "5_simulation/outputs/reports/Supplementary_Tables.md",
+      "bytes": 105,
+      "sha256": "06b0a17cdd386939af2bc2b191dfd847a8ffc82a2bebaebd1a16073fc5107d04"
+    },
+    {
+      "path": "5_simulation/outputs/tables/PMT_coverage_competing_minima.csv",
+      "bytes": 28384,
+      "sha256": "13460421d000cab64804e2b2f1698926a79ba4beb5427990fade5418616bc4c8"
+    },
+    {
+      "path": "5_simulation/outputs/tables/PMT_coverage_feedback.csv",
+      "bytes": 498,
+      "sha256": "624ab02aabe75a9ee4d9b7c12d0667e5861c87603aff30b6b8c2d20d832d3bf9"
+    },
+    {
+      "path": "5_simulation/outputs/tables/PMT_coverage_intervals.csv",
+      "bytes": 988,
+      "sha256": "bd38f059e487cb90c106971de17fc9b6ad6f6ba9f453750c0fcdd878296c2fa4"
+    },
+    {
+      "path": "5_simulation/outputs/tables/PMT_coverage_optimization_comparison.csv",
+      "bytes": 2941,
+      "sha256": "84d668bc005bf67691febe5d77b0c387a7a6dd52e8709b63deceb6cbeedc3a42"
+    },
+    {
+      "path": "5_simulation/outputs/tables/PMT_coverage_optimization_curve.csv",
+      "bytes": 85351,
+      "sha256": "8e714bd5abe39d6b8b6b80fc11554382e44cb45361adef6ce869e5d0e47165a5"
+    },
+    {
+      "path": "5_simulation/outputs/tables/PMT_coverage_optimization_final_comparison.csv",
+      "bytes": 1562,
+      "sha256": "769d6e69454fd5ea85dfd3c46ca6a30c7de3e19539f005a291b44302adf52693"
+    },
+    {
+      "path": "5_simulation/outputs/tables/PMT_coverage_optimization_final_curve.csv",
+      "bytes": 102642,
+      "sha256": "e96d9bf99af6772c2082918206a48433e7778477a5e942fa794d0fd2433889c9"
+    },
+    {
+      "path": "5_simulation/outputs/tables/PMT_coverage_optimization_intervals.csv",
+      "bytes": 284,
+      "sha256": "afa69cf1502badb12f7d77090a2379f9477fe1354fa6ac0239fdce7f2e57a4f0"
+    },
+    {
+      "path": "5_simulation/outputs/tables/PMT_coverage_optimization_quintiles.csv",
+      "bytes": 149621,
+      "sha256": "6f1dad8b6cc0e75dcda58a7d0872a5d049b604feedefd4be5cec82c0e4b25fb6"
+    },
+    {
+      "path": "5_simulation/outputs/tables/PMT_coverage_quintiles.csv",
+      "bytes": 3390,
+      "sha256": "f197cff063fa10bf7f0768e9a37ddf4ca730e21b6977d2d2abe57889aae2c386"
+    },
+    {
+      "path": "5_simulation/outputs/tables/PMT_coverage_robustness_curves.csv",
+      "bytes": 438318,
+      "sha256": "ca9bbe09f0bcf8b2044a12a65e453b62f2931cdba45ac5c297047c3e09e1b46a"
+    },
+    {
+      "path": "5_simulation/outputs/tables/PMT_coverage_robustness_refined_curves.csv",
+      "bytes": 606813,
+      "sha256": "458395bba5d0bb96fa8ceca204bd84653d0734bc9a4cd3c503dacee611909ca8"
+    },
+    {
+      "path": "5_simulation/outputs/tables/PMT_coverage_robustness_refined_summary.csv",
+      "bytes": 23654,
+      "sha256": "328f6afcd98c6321f8423a76c040f4af8a07d793fc3b7e2d007d0287d635843d"
+    },
+    {
+      "path": "5_simulation/outputs/tables/PMT_coverage_robustness_summary.csv",
+      "bytes": 23291,
+      "sha256": "0eb82ea149b47bf998e3a75d7c92169312505be1e22df231d44bba0e1dbe1e35"
+    },
+    {
+      "path": "5_simulation/outputs/tables/PMT_coverage_sensitivity.csv",
+      "bytes": 2538,
+      "sha256": "67bc73bb01903fc88a9fea607f0b407cab7b8a8987856329d9fdf0631e3f1894"
+    },
+    {
+      "path": "5_simulation/outputs/tables/PMT_coverage_tradeoff.csv",
+      "bytes": 2146,
+      "sha256": "a461a6b60a2e419dbce9d5dbf053332595b19a37079071d3d7f491cde2be0819"
+    },
+    {
+      "path": "5_simulation/outputs/tables/PMT_coverage_tradeoff_curve.csv",
+      "bytes": 30680,
+      "sha256": "0adc8e9e83912342c305e8964028e9c07207aebd6f6a7c8c1b7dfa97269eceae"
+    },
+    {
+      "path": "5_simulation/outputs/tables/PMT_coverage_tradeoff_intervals.csv",
+      "bytes": 817,
+      "sha256": "58662677b309851bd9a3eae9a3585ff69c17a71505af22f7b6a8c7368dc59be0"
+    },
+    {
+      "path": "5_simulation/outputs/tables/PMT_epsilon_new_evaluations.csv",
+      "bytes": 32364,
+      "sha256": "280d218c5ca5992965c09696ba0373b6802444084b31b6c1fd924903463d60b0"
+    },
+    {
+      "path": "5_simulation/outputs/tables/PMT_epsilon_quintiles.csv",
+      "bytes": 7071,
+      "sha256": "7639a0dd3480a9725a387f7fbb022eeeb436140c6e439255ece3b08e9af84d1e"
+    },
+    {
+      "path": "5_simulation/outputs/tables/PMT_epsilon_solutions.csv",
+      "bytes": 4863,
+      "sha256": "bd6a19f10df9e80b1219717e46198fa78f5b254ebdafad6ec81d1126e560977c"
+    },
+    {
+      "path": "5_simulation/outputs/tables/PMT_pareto_evaluated_policies.csv",
+      "bytes": 135633,
+      "sha256": "e1183fe62f87004f73bf05592b97e4ca62988b174b6983f12a5b1b12a0c2513f"
+    },
+    {
+      "path": "5_simulation/outputs/tables/PMT_pareto_frontier.csv",
+      "bytes": 58887,
+      "sha256": "c6b3c43595563726ee29d6ef324efec6ab51926e7bbd4a75af0bcb354787b874"
+    },
+    {
+      "path": "5_simulation/outputs/tables/main/Table1_main_policy_results.csv",
+      "bytes": 1089,
+      "sha256": "40e49301de332f3c0ab0ad28a67b98cbaed625da4f0ddc833f0a4dffc3a5d1e1"
+    },
+    {
+      "path": "5_simulation/outputs/tables/main/Table2_main_macro_results.csv",
+      "bytes": 1339,
+      "sha256": "443dfef5f7224f929948f8f4f2879c9cf234f91c55096dcdb08a33b934cdefc4"
+    },
+    {
+      "path": "5_simulation/outputs/tables/main/Table3_quintile_results.csv",
+      "bytes": 2428,
+      "sha256": "1bf4fddb967110f28c54541086e0ccc5428b403f124f72f289982156c706f3bb"
+    },
+    {
+      "path": "5_simulation/outputs/tables/main/Table4_conditional_intervals.csv",
+      "bytes": 386,
+      "sha256": "8a3a7c1a57aa6218ae013b8ecc3bbb152e66b472958a6374c65c6eb6603f70af"
+    },
+    {
+      "path": "5_simulation/outputs/tables/main/Table5_targeting_thresholds.csv",
+      "bytes": 1204,
+      "sha256": "8de7a522acceb8e2e5a2da08dd46dbbff03645cc2bc2bf8ba14a07ab3a39a867"
+    },
+    {
+      "path": "5_simulation/outputs/tables/main/Table6_recipient_composition.csv",
+      "bytes": 2996,
+      "sha256": "9ec09f48f295d9607aa9b587b6e26881ac06c4c5815b00357fba4d7fe9557f8a"
+    },
+    {
+      "path": "5_simulation/outputs/tables/main/Table7_score_degradation.csv",
+      "bytes": 1163,
+      "sha256": "68eeb9b8cd6312f6a708c7955002a7cc4935c01fe1e2b02d6aeccd599b7294f6"
+    },
+    {
+      "path": "5_simulation/outputs/tables/main/table5.csv",
+      "bytes": 531,
+      "sha256": "c705c677830b1082ec16be5c418e6f095a50e8e57879f92f51a205175183174c"
+    },
+    {
+      "path": "5_simulation/outputs/tables/supplementary/S10_macro_results.xlsx",
+      "bytes": 26292,
+      "sha256": "22ae8fc07a20cf8c1cab351ff36aac3d368304a288fc3c4b5653305871fee993"
+    },
+    {
+      "path": "5_simulation/outputs/tables/supplementary/S11_sector_results.xlsx",
+      "bytes": 31834,
+      "sha256": "999562195f2e4da9c42ad5b3469a239dc4b4e48e14b6cf43ec6992c2eadcacc6"
+    },
+    {
+      "path": "5_simulation/outputs/tables/supplementary/S12_micro_sensitivity.xlsx",
+      "bytes": 11158,
+      "sha256": "77731656b4586c5a96a5cc685f563c081befaeee854a98fb8357c9b7567c9f81"
+    },
+    {
+      "path": "5_simulation/outputs/tables/supplementary/S13_negative_income_diagnostic.xlsx",
+      "bytes": 7831,
+      "sha256": "75d57ff3c181924a79df57dc275ed04b9b2bc32577d49d94246db75ed5154ecf"
+    },
+    {
+      "path": "5_simulation/outputs/tables/supplementary/S14_coverage_pareto_frontier.xlsx",
+      "bytes": 113349,
+      "sha256": "2d23bc21c56cb1168c20576759affb17f897d22ae915f6365985c13b7741b65e"
+    },
+    {
+      "path": "5_simulation/outputs/tables/supplementary/S15_epsilon_constraint_solutions.xlsx",
+      "bytes": 10483,
+      "sha256": "e657f1ec45f94ae8cbfdc2b3c37c40e3d1f631e49f41925391ee973eabd4f216"
+    },
+    {
+      "path": "5_simulation/outputs/tables/supplementary/S16_coverage_design_robustness.xlsx",
+      "bytes": 386852,
+      "sha256": "c35c8c52b35d2f611eeb9272d6cb2cc050f4668f9c6ebd861749770388790fb4"
+    },
+    {
+      "path": "5_simulation/outputs/tables/supplementary/S17_equilibrium_feedback_decomposition.xlsx",
+      "bytes": 6263,
+      "sha256": "fe8af137d4a1ab16c16204dc3859267a950008e06e426a401f47befc774ebd32"
+    },
+    {
+      "path": "5_simulation/outputs/tables/supplementary/S18_coverage_conditional_intervals.xlsx",
+      "bytes": 6136,
+      "sha256": "64870573323ec6dc9eb550137f03d9dbe00a5abd85ddfac8f211b6b4099c559e"
+    },
+    {
+      "path": "5_simulation/outputs/tables/supplementary/S19_consumption_elasticities.xlsx",
+      "bytes": 6463,
+      "sha256": "fe8da6c67d626007ae6a1e1733508dabe97ba88a2d9beb9f50f4c8f168578c9e"
+    },
+    {
+      "path": "5_simulation/outputs/tables/supplementary/S1_elasticity_assignment.xlsx",
+      "bytes": 14339,
+      "sha256": "1da5a5b8cf51e18a1d5b4d0d6ace3499ef661c42ddc193c1c791b8e06c634c92"
+    },
+    {
+      "path": "5_simulation/outputs/tables/supplementary/S2_pmt_predictors.xlsx",
+      "bytes": 6858,
+      "sha256": "01f2292836195d0ef753b14f7c16571131f31d77bb1f7502aa79e7d0d4f2fac3"
+    },
+    {
+      "path": "5_simulation/outputs/tables/supplementary/S3_quintile_results.xlsx",
+      "bytes": 8860,
+      "sha256": "505b6669ae899c401a5061491e16b25b4af9db7a716b0a8ad1923a313fddec98"
+    },
+    {
+      "path": "5_simulation/outputs/tables/supplementary/S4_error_grid_draws.xlsx",
+      "bytes": 215141,
+      "sha256": "cd040e057949db72063cc3a873de92f204dd7c8f0f69cd0363981ea6a3c6955a"
+    },
+    {
+      "path": "5_simulation/outputs/tables/supplementary/S5_error_grid_summary.xlsx",
+      "bytes": 33242,
+      "sha256": "4d50e78dc57aefdde5a22fb1bc21867b642e12b953f4cd13a1d3d3b0ee60079f"
+    },
+    {
+      "path": "5_simulation/outputs/tables/supplementary/S6_score_degradation_summary.xlsx",
+      "bytes": 8240,
+      "sha256": "275c0b73813616bb42863f0d03f2f55f9414054fa41fd7abff5fedeebac94d3c"
+    },
+    {
+      "path": "5_simulation/outputs/tables/supplementary/S7_score_degradation_draws.xlsx",
+      "bytes": 25526,
+      "sha256": "28f129f8af644b2ce6a175e535645a52cee52981e6b47c0bcc3bbc91cea6cf4d"
+    },
+    {
+      "path": "5_simulation/outputs/tables/supplementary/S8_configuration_results.xlsx",
+      "bytes": 23222,
+      "sha256": "92280d0f299dacb70ebd582ed3fe4642ff57d825b48f9442895e9f6a08f1157a"
+    },
+    {
+      "path": "5_simulation/outputs/tables/supplementary/S9_policy_rankings.xlsx",
+      "bytes": 8411,
+      "sha256": "7670672446bc49243c64638d03e4d4a17e6a564c464a78f1159c640eb87a2070"
+    },
+    {
+      "path": "CITATION.cff",
+      "bytes": 532,
+      "sha256": "cef221ff97d7f3b70dc82213fb3ab12e111270540b858c42de895f88885da75a"
+    },
+    {
+      "path": "DATA_SOURCES.md",
+      "bytes": 3751,
+      "sha256": "a192d4da35a94d16e008161f664c37cc94722153caaa6503bed887d067c2ede2"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 1343,
+      "sha256": "0359f64a05e5a748318a747936aa58d839872fe9025888f7f5d9159424af8857"
+    },
+    {
+      "path": "README.md",
+      "bytes": 4914,
+      "sha256": "9114d23d1c70e405e5e129ed5e95302e74ad93666abbd6420eb9e5d9970ce02d"
+    },
+    {
+      "path": "VALIDATION.json",
+      "bytes": 1051,
+      "sha256": "6c393f0b71aa8c22bb9e9d961b1211f58a00946b7ab49089a7ad0dd93abe4de1"
+    },
+    {
+      "path": "publication_tables/main/table1.xlsx",
+      "bytes": 5869,
+      "sha256": "c51aa93d3f34349432e096992c85bdec312dd5c8a7ca848feed18cf9a83ce940"
+    },
+    {
+      "path": "publication_tables/main/table2.xlsx",
+      "bytes": 6030,
+      "sha256": "332cbb470d2afa7fdeb84e1c8f357ccb0b13bdbdbc78ed57c36b45995c0c2828"
+    },
+    {
+      "path": "publication_tables/main/table3.xlsx",
+      "bytes": 5955,
+      "sha256": "621f9c05e21d3ea6ff6259fd45231b73660fdca1c321736a33d8d7a5fd8db186"
+    },
+    {
+      "path": "publication_tables/main/table4.xlsx",
+      "bytes": 5729,
+      "sha256": "3532c2faf76caaed94ca9deee82c5a352417363dd34ca8a9c7f3515d0b235d82"
+    },
+    {
+      "path": "publication_tables/main/table5.xlsx",
+      "bytes": 6057,
+      "sha256": "dae869789d4d9b975f0c2ee02227af174b47dd1729662a5888685421906156d3"
+    },
+    {
+      "path": "publication_tables/supplementary/S10_macro_results.xlsx",
+      "bytes": 26292,
+      "sha256": "22ae8fc07a20cf8c1cab351ff36aac3d368304a288fc3c4b5653305871fee993"
+    },
+    {
+      "path": "publication_tables/supplementary/S11_sector_results.xlsx",
+      "bytes": 31834,
+      "sha256": "999562195f2e4da9c42ad5b3469a239dc4b4e48e14b6cf43ec6992c2eadcacc6"
+    },
+    {
+      "path": "publication_tables/supplementary/S12_micro_sensitivity.xlsx",
+      "bytes": 11158,
+      "sha256": "77731656b4586c5a96a5cc685f563c081befaeee854a98fb8357c9b7567c9f81"
+    },
+    {
+      "path": "publication_tables/supplementary/S13_negative_income_diagnostic.xlsx",
+      "bytes": 7831,
+      "sha256": "75d57ff3c181924a79df57dc275ed04b9b2bc32577d49d94246db75ed5154ecf"
+    },
+    {
+      "path": "publication_tables/supplementary/S14_coverage_pareto_frontier.xlsx",
+      "bytes": 113349,
+      "sha256": "2d23bc21c56cb1168c20576759affb17f897d22ae915f6365985c13b7741b65e"
+    },
+    {
+      "path": "publication_tables/supplementary/S15_epsilon_constraint_solutions.xlsx",
+      "bytes": 10483,
+      "sha256": "e657f1ec45f94ae8cbfdc2b3c37c40e3d1f631e49f41925391ee973eabd4f216"
+    },
+    {
+      "path": "publication_tables/supplementary/S16_coverage_design_robustness.xlsx",
+      "bytes": 386852,
+      "sha256": "c35c8c52b35d2f611eeb9272d6cb2cc050f4668f9c6ebd861749770388790fb4"
+    },
+    {
+      "path": "publication_tables/supplementary/S17_equilibrium_feedback_decomposition.xlsx",
+      "bytes": 6263,
+      "sha256": "fe8af137d4a1ab16c16204dc3859267a950008e06e426a401f47befc774ebd32"
+    },
+    {
+      "path": "publication_tables/supplementary/S18_coverage_conditional_intervals.xlsx",
+      "bytes": 6136,
+      "sha256": "64870573323ec6dc9eb550137f03d9dbe00a5abd85ddfac8f211b6b4099c559e"
+    },
+    {
+      "path": "publication_tables/supplementary/S19_consumption_elasticities.xlsx",
+      "bytes": 6463,
+      "sha256": "fe8da6c67d626007ae6a1e1733508dabe97ba88a2d9beb9f50f4c8f168578c9e"
+    },
+    {
+      "path": "publication_tables/supplementary/S1_elasticity_assignment.xlsx",
+      "bytes": 14339,
+      "sha256": "1da5a5b8cf51e18a1d5b4d0d6ace3499ef661c42ddc193c1c791b8e06c634c92"
+    },
+    {
+      "path": "publication_tables/supplementary/S2_pmt_predictors.xlsx",
+      "bytes": 6858,
+      "sha256": "01f2292836195d0ef753b14f7c16571131f31d77bb1f7502aa79e7d0d4f2fac3"
+    },
+    {
+      "path": "publication_tables/supplementary/S3_quintile_results.xlsx",
+      "bytes": 8860,
+      "sha256": "505b6669ae899c401a5061491e16b25b4af9db7a716b0a8ad1923a313fddec98"
+    },
+    {
+      "path": "publication_tables/supplementary/S4_error_grid_draws.xlsx",
+      "bytes": 215141,
+      "sha256": "cd040e057949db72063cc3a873de92f204dd7c8f0f69cd0363981ea6a3c6955a"
+    },
+    {
+      "path": "publication_tables/supplementary/S5_error_grid_summary.xlsx",
+      "bytes": 33242,
+      "sha256": "4d50e78dc57aefdde5a22fb1bc21867b642e12b953f4cd13a1d3d3b0ee60079f"
+    },
+    {
+      "path": "publication_tables/supplementary/S6_score_degradation_summary.xlsx",
+      "bytes": 8240,
+      "sha256": "275c0b73813616bb42863f0d03f2f55f9414054fa41fd7abff5fedeebac94d3c"
+    },
+    {
+      "path": "publication_tables/supplementary/S7_score_degradation_draws.xlsx",
+      "bytes": 25526,
+      "sha256": "28f129f8af644b2ce6a175e535645a52cee52981e6b47c0bcc3bbc91cea6cf4d"
+    },
+    {
+      "path": "publication_tables/supplementary/S8_configuration_results.xlsx",
+      "bytes": 23222,
+      "sha256": "92280d0f299dacb70ebd582ed3fe4642ff57d825b48f9442895e9f6a08f1157a"
+    },
+    {
+      "path": "publication_tables/supplementary/S9_policy_rankings.xlsx",
+      "bytes": 8411,
+      "sha256": "7670672446bc49243c64638d03e4d4a17e6a564c464a78f1159c640eb87a2070"
+    },
+    {
+      "path": "requirements.txt",
+      "bytes": 143,
+      "sha256": "54a75491a7c79cc0d5767175d0950eefc716ec60bdc6ce19f34fa3dd83283ea9"
+    },
+    {
+      "path": "tools/public_excel_export.py",
+      "bytes": 1565,
+      "sha256": "9a8b7dd112d33318b7d7badbd8020d9372cd4a1ed5c19c34fc482c97f3d7b597"
+    },
+    {
+      "path": "tools/render_public_figures.py",
+      "bytes": 1583,
+      "sha256": "931d669ead84d8c04d789e7665db5a2812eddd68e4b062b07e267bdf3f6f2428"
+    },
+    {
+      "path": "tools/run_preparation.py",
+      "bytes": 1319,
+      "sha256": "6cec4ba1312f700ccd5986e0b85ed30bf6dd0554c0c297f837ae52b2c6827823"
+    },
+    {
+      "path": "tools/smoke_test.py",
+      "bytes": 2151,
+      "sha256": "b4c1df83c0448d6684acf2705862706e0ce0b405a4ee5ab94f71f2e315882e37"
+    },
+    {
+      "path": "tools/validate_public_release.py",
+      "bytes": 3012,
+      "sha256": "84db40d840e98ed03e5f7e4f19b029f71bf106dcd66dcd313529f52c84f0970a"
+    }
+  ]
+}

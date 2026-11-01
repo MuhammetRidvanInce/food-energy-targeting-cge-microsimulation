@@ -13,14 +13,12 @@ from micro_simulation import *
 
 def main():
     started=time.time(); cfgs=configurations()
-    for sub in ['diagnostics','equilibria','tables/main','tables/supplementary','figures/main','figures/supplementary','figures/data','reports']:
-        (OUT/sub).mkdir(parents=True,exist_ok=True)
     dump(OUT/'diagnostics/run_manifest.json',dict(status='running',started_unix=started))
-    tracked=[SAM,ELASTICITIES,PROJECT/'4_cge_model/codes/cge_model.py']
+    tracked=[SAM,ELASTICITIES,PROJECT/'4_cge_model/codes/cge_model.py',PROJECT/'4_cge_model/datas/household_preferences.json']
     tracked += [MICRO/x for x in ['hane_cd_2024.csv','fert_cd_2024.csv','tuketim_cd_2024.csv']]
     tracked += [ROOT/'codes'/name for name in
                 ['common.py','micro_simulation.py','policy_model.py','run_simulations.py']]
-    hashes={source_key(p):sha(p) for p in tracked}
+    hashes={str(p.relative_to(PROJECT)):sha(p) for p in tracked}
     dump(DATA/'analysis_design.json',dict(seed=SEED,configurations=cfgs,
         monetary_unit='trillion TL in all stage-5 calculations and equilibrium files',
         imported_sam_unit='thousand TRY, converted by stage 4 using 1e9',
@@ -193,11 +191,11 @@ def main():
         score_intervals='Recipient seed resampled in addition to household multipliers',
         additional_uncertainty=['survey strata and PSU structure','elasticity estimation','external PMT validity','model refitting'],
         interpretation='Conditional empirical-distribution intervals; macro/parameter uncertainty separately assessed by scenarios'))
-    for path in tracked:assert hashes[source_key(path)]==sha(path),'Input changed during analysis'
+    for path in tracked:assert hashes[str(path.relative_to(PROJECT))]==sha(path),'Input changed during analysis'
     pivot=pd.DataFrame(metrics_rows)
     ranks=pivot[pivot.policy.isin(masks)].pivot(index='case',columns='policy',values='fgt1_pct')
     table('S9_policy_rankings',ranks.rank(axis=1).reset_index(),True)
-    summary=dict(status='complete',elapsed_seconds=time.time()-started,configurations=len(cfgs),
+    summary=dict(status='complete',household_utility='nested_CES',household_nest_sigmas=cfgs['main']['household_nest_sigmas'],elapsed_seconds=time.time()-started,configurations=len(cfgs),
         checked_policy_and_shock_equilibria=len(valid),baseline_gdp_trillion_tl=gdp(base),
         main_net_budget_trillion_tl=gdp(base)*cfg['budget'],
         main_results=[r for r in metrics_rows if r['case']=='main'],intervals=intervals,
@@ -210,7 +208,6 @@ def main():
         source_hashes=hashes,python=platform.python_version(),
         packages={k:importlib.metadata.version(k) for k in ['numpy','pandas','scipy','scikit-learn','pyomo','matplotlib','openpyxl']})
     dump(OUT/'diagnostics/run_manifest.json',summary)
-    dump(OUT/'diagnostics/publication_run_summary.json',{k:summary[k] for k in ['baseline_gdp_trillion_tl','checked_policy_and_shock_equilibria','configurations']})
     from document_supplementary_tables import main as refresh_supplementary
     refresh_supplementary()
     print(f'COMPLETE: {len(valid)} checked equilibria, {time.time()-started:.1f}s',flush=True)

@@ -22,6 +22,7 @@ import pyomo.environ as pyo
 from pyomo.opt import check_optimal_termination
 
 ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_PREFERENCES = ROOT / 'datas' / 'household_preferences.json'
 DEFAULT_SAM = ROOT / "datas" / "SAM_2023_64_sectors_5_households.xlsx"
 DEFAULT_ELASTICITIES = ROOT / "datas" / "parameters" / "selected_elasticities.xlsx"
 SCALE = 1e9  # thousand TRY / trilyon TL
@@ -59,7 +60,7 @@ def load_benchmark(path: str | Path = DEFAULT_SAM) -> Benchmark:
     if not np.isclose(raw.to_numpy().sum(), full.loc['TOTAL', 'TOTAL'], atol=.001, rtol=1e-12):
         raise ValueError("Inconsistent SAM grand total.")
 
-
+    # Reject unsupported new flows explicitly.
     allowed = pd.DataFrame(False, index=ACCOUNTS, columns=ACCOUNTS)
     allowed.loc[list(SECTORS), list(SECTORS) + list(GROUPS) + ['GOV', 'INV', 'EXT']] = True
     allowed.loc[['LAB', 'CAP', 'PTAX', 'CTAX', 'EXT'], list(SECTORS)] = True
@@ -163,13 +164,16 @@ def _ces_cost(prices, shares, elasticity):
 
 def build_model(benchmark: Benchmark | None = None, *, sam_path=DEFAULT_SAM,
                 sigma=None, psi=None, omega=None, investment_closure='signed_shares',
-                elasticities_path=DEFAULT_ELASTICITIES):
+                elasticities_path=DEFAULT_ELASTICITIES, household_sigma=None,
+                household_structure=None, household_nest_sigmas=None):
     """Build the calibrated model; apply exogenous shocks through set_scenario before solving.
 
     signed_shares: signed benchmark net-investment expenditure shares.
     fixed_negative: sensitivity closure holding negative net-investment volumes fixed.
     elasticities_path: three-sheet sector elasticity workbook; explicit sigma/psi/omega
     arguments override only the specified values.
+    household_structure: default from JSON; explicit household_sigma selects flat CES.
+    household_nest_sigmas: upper/food/energy/other, scalars or Q1-Q5 dictionaries.
     """
     b = load_benchmark(sam_path) if benchmark is None else benchmark
     a = b.sam
@@ -177,6 +181,22 @@ def build_model(benchmark: Benchmark | None = None, *, sam_path=DEFAULT_SAM,
     if investment_closure not in {'signed_shares', 'fixed_negative'}:
         raise ValueError("investment_closure: must be signed_shares or fixed_negative.")
     el = elasticity_table(sigma, psi, omega, elasticities_path=elasticities_path)
+    preferences = json.loads(DEFAULT_PREFERENCES.read_text(encoding='utf-8'))
+    # An explicit scalar/mapping retains the legacy flat-CES API used by stage 5.
+    if household_structure is None:
+        household_structure = 'flat' if household_sigma is not None else preferences.get('structure', 'flat')
+    if household_structure not in ('flat', 'nested'):
+        raise ValueError('household_structure must be flat or nested.')
+    if household_structure == 'flat' and household_nest_sigmas is not None:
+        raise ValueError('Nested elasticities require household_structure=nested.')
+    if household_structure == 'nested' and household_sigma is not None:
+        raise ValueError('For nested CES specify household_nest_sigmas, not household_sigma.')
+    if household_sigma is None:
+        household_sigma = preferences['household_sigma']
+    eta = ({h: float(household_sigma[h]) for h in hh} if isinstance(household_sigma, Mapping)
+           else {h: float(household_sigma) for h in hh})
+    if not all(math.isfinite(x) and x > 0 for x in eta.values()):
+        raise ValueError('Household consumption elasticities must be finite and strictly positive.')
     L0, K0 = a.loc['LAB', ss], a.loc['CAP', ss]
     X0 = L0 + K0
     I0 = a.loc[ss, ss]
@@ -204,12 +224,32 @@ def build_model(benchmark: Benchmark | None = None, *, sam_path=DEFAULT_SAM,
     if min((1 + th).min(), 1 + tg, 1 + ti, (1 + tz + tc).min()) <= 0:
         raise ValueError("Tax-inclusive price multipliers must be positive.")
     beta = C0.multiply(1 + th, axis=1).divide(B0, axis=1)
+    nests = {'food': ['S00', 'S02', 'S04'], 'energy': ['S09', 'S23']}
+    nests['other'] = [i for i in ss if i not in nests['food'] + nests['energy']]
+    nest_sigmas = {}
+    if household_structure == 'nested':
+        selected = (preferences['nested_sigmas'] if household_nest_sigmas is None
+                    else household_nest_sigmas)
+        if set(selected) != {'upper', *nests}:
+            raise ValueError('Provide upper, food, energy and other elasticities.')
+        for k, spec in selected.items():
+            values = {h: float(spec[h]) for h in hh} if isinstance(spec, Mapping) else {h: float(spec) for h in hh}
+            if not all(math.isfinite(x) and x > 0 for x in values.values()):
+                raise ValueError('Nested consumption elasticities must be finite and positive.')
+            nest_sigmas[k] = values
+        alpha = { (k,h): float(beta.loc[items,h].sum()) for k,items in nests.items() for h in hh }
+        if min(alpha.values()) <= 0:
+            raise ValueError('Every consumption nest must have positive benchmark spending.')
     inv_budget0 = V0.sum() * (1 + ti)
 
     m = pyo.ConcreteModel(name='FoodEnergy_CGE_64x5')
     m._benchmark = b
     m._elasticities = el
     m._investment_closure = investment_closure
+    m._household_sigma = eta
+    m._household_structure = household_structure
+    m._household_nest_sigmas = nest_sigmas
+    m._consumption_nests = nests
     m._cal = dict(L0=L0, K0=K0, X0=X0, I0=I0, Z0=Z0, E0=E0, M0=M0,
                   D0=D0, Q0=Q0, C0=C0, G0=G0, V0=V0, Lh0=Lh0, Kh0=Kh0,
                   R0=R0, Y0=Y0, B0=B0, Sp0=Sp0, th=th, tg=tg, ti=ti,
@@ -233,7 +273,7 @@ def build_model(benchmark: Benchmark | None = None, *, sam_path=DEFAULT_SAM,
         _ces_cost([m.w, m.r], [L0[i] / X0[i], K0[i] / X0[i]], el.loc[i, 'omega']))
     m.pz = pyo.Expression(m.i, rule=lambda m, i:
         (X0[i] * m.pv[i] + sum(I0.loc[j, i] * m.pq[j] for j in ss if I0.loc[j, i] != 0)) / Z0[i])
-
+    # CET unit revenue index. With zero exports, use pd directly.
     def revenue(m, i):
         if E0[i] == 0:
             return m.pd[i]
@@ -269,9 +309,43 @@ def build_model(benchmark: Benchmark | None = None, *, sam_path=DEFAULT_SAM,
     m.Bh = pyo.Expression(m.h, rule=lambda m, h: m.Yh[h] - m.Tdh[h] - m.Sph[h])
     m.pch_gross = pyo.Expression(m.i, m.h, rule=lambda m, i, h: (1 + th[h])*m.pq[i])
     m.pch = pyo.Expression(m.i, m.h, rule=lambda m, i, h: (1-m.subsidy[i])*m.pch_gross[i,h])
-    m.Ch = pyo.Expression(m.i, m.h, rule=lambda m, i, h: beta.loc[i,h]*m.Bh[h]/m.pch[i,h])
+    # Calibrated dual cost functions: prices relative to baseline purchaser prices.
+    if household_structure == 'flat':
+        m.household_ces_den = pyo.Var(m.h, initialize=1.0, bounds=(1e-12, None))
+        m.household_ces_price = pyo.Constraint(m.h, rule=lambda m, h:
+            m.household_ces_den[h] == sum(float(beta.loc[i,h]) *
+                (m.pch[i,h] / (1+th[h]))**(1-eta[h]) for i in ss if beta.loc[i,h] > 0))
+        m.household_cpi = pyo.Expression(m.h, rule=lambda m, h:
+            _ces_cost([m.pch[i,h]/(1+th[h]) for i in ss], beta[h], eta[h])
+            if abs(eta[h]-1)<1e-8 else m.household_ces_den[h]**(1/(1-eta[h])))
+        m.Ch = pyo.Expression(m.i, m.h, rule=lambda m, i, h:
+            float(beta.loc[i,h])*m.Bh[h]/m.pch[i,h] *
+            (m.pch[i,h]/(1+th[h]))**(1-eta[h])/m.household_ces_den[h]
+            if beta.loc[i,h] > 0 else 0.0)
+    else:
+        m.nest = pyo.Set(initialize=list(nests), ordered=True)
+        m.nest_price = pyo.Var(m.nest, m.h, initialize=1., bounds=(1e-9,None))
+        m.total_consumption_price = pyo.Var(m.h, initialize=1., bounds=(1e-9,None))
+        m.nest_price_equation = pyo.Constraint(m.nest, m.h, rule=lambda m,k,h:
+            m.nest_price[k,h] == _ces_cost(
+                [m.pch[i,h]/(1+th[h]) for i in nests[k]],
+                [float(beta.loc[i,h])/alpha[k,h] for i in nests[k]], nest_sigmas[k][h]))
+        m.total_price_equation = pyo.Constraint(m.h, rule=lambda m,h:
+            m.total_consumption_price[h] == _ces_cost(
+                [m.nest_price[k,h] for k in nests], [alpha[k,h] for k in nests], nest_sigmas['upper'][h]))
+        m.household_cpi = pyo.Expression(m.h, rule=lambda m,h:m.total_consumption_price[h])
+        m.nest_budget = pyo.Expression(m.nest,m.h,rule=lambda m,k,h:
+            m.Bh[h]*alpha[k,h]*(m.nest_price[k,h]/m.household_cpi[h])**(1-nest_sigmas['upper'][h]))
+        sector_nest = {i:k for k,items in nests.items() for i in items}
+        def nested_demand(m,i,h):
+            if beta.loc[i,h] <= 0:
+                return 0.0
+            k = sector_nest[i]
+            return (m.nest_budget[k,h]/m.pch[i,h]*float(beta.loc[i,h])/alpha[k,h]
+                    *(m.pch[i,h]/(1+th[h])/m.nest_price[k,h])**(1-nest_sigmas[k][h]))
+        m.Ch = pyo.Expression(m.i,m.h,rule=nested_demand)
     m.C = pyo.Expression(m.i, rule=lambda m, i: sum(m.Ch[i,h] for h in hh))
-    m.G = pyo.Param(m.i, initialize=G0.to_dict())
+    m.G = pyo.Param(m.i, initialize=G0.to_dict())  # fixed real government consumption
     m.pcg = pyo.Expression(m.i, rule=lambda m, i: (1+tg)*m.pq[i])
     m.pci = pyo.Expression(m.i, rule=lambda m, i: (1+ti)*m.pq[i])
     def investment(m, i):
@@ -293,7 +367,7 @@ def build_model(benchmark: Benchmark | None = None, *, sam_path=DEFAULT_SAM,
     m.savings = pyo.Expression(expr=sum(m.Sph[h] for h in hh)+m.Sg+m.exchange_rate*m.Sf)
     m.investment_balance = pyo.Constraint(expr=sum(m.pci[i]*m.INV[i] for i in ss)/inv_budget0 == m.savings/inv_budget0)
     m.goods_gap = pyo.Expression(m.i, rule=lambda m,i: m.Q[i]-m.C[i]-m.G[i]-m.INV[i]-sum(m.I[i,j] for j in ss))
-
+    # Omit one large market equation; small markets such as S63 remain in the solver.
     m._omitted_market = str(Q0.idxmax())
     m.commodity_market = pyo.Constraint(m.i, rule=lambda m,i:
         pyo.Constraint.Skip if i == m._omitted_market else m.goods_gap[i]/Q0[i] == 0)
@@ -452,9 +526,14 @@ def results(m) -> dict:
     house['capital_income'] = [v(m.r)*c['Kh0'][h]*SCALE for h in m.h]
     house['disposable_income'] = house.gross_income-house.direct_tax
     house['income_factor'] = [v(m.Y_regular[h])/c['Y0'][h] for h in m.h]
-    house['cpi_cobb_douglas'] = [math.exp(sum(c['beta'].loc[i,h]*math.log(v(m.pch[i,h])/(1+c['th'][h])) for i in m.i)) for h in m.h]
+    house['cpi_ces'] = [v(m.household_cpi[h]) for h in m.h]
+    if m._household_structure == 'flat':
+        house['household_sigma'] = [m._household_sigma[h] for h in m.h]
+    else:
+        for k, values in m._household_nest_sigmas.items():
+            house[f'household_sigma_{k}'] = [values[h] for h in m.h]
     house['cpi_laspeyres'] = [sum(c['beta'].loc[i,h]*v(m.pch[i,h])/(1+c['th'][h]) for i in m.i) for h in m.h]
-    house['real_consumption_change_pct'] = [100*(v(m.Bh[h])/c['B0'][h]/house.loc[h,'cpi_cobb_douglas']-1) for h in m.h]
+    house['real_consumption_change_pct'] = [100*(v(m.Bh[h])/c['B0'][h]/house.loc[h,'cpi_ces']-1) for h in m.h]
     prices = pd.DataFrame({h:[v(m.pch[i,h]) for i in m.i] for h in m.h}, index=list(m.i))
     ratios = prices.divide(1+c['th'], axis=1)
     consumption = pd.DataFrame({h:[v(m.Ch[i,h])*SCALE for i in m.i] for h in m.h}, index=list(m.i))
@@ -470,6 +549,9 @@ def results(m) -> dict:
                 consumer_price_ratios=ratios, consumption=consumption, macro=macro,
                 diagnostics=d, metadata=dict(monetary_unit='thousand TRY',
                 quantity_unit='benchmark-price value in thousand TRY', internal_scale=SCALE,
+                household_utility='nested_CES' if m._household_structure == 'nested' else 'CES',
+                household_sigma=dict(m._household_sigma) if m._household_structure == 'flat' else None,
+                household_nest_sigmas=m._household_nest_sigmas, consumption_nests=m._consumption_nests,
                 sam_sha256=m._benchmark.sha256, investment_closure=m._investment_closure,
                 elasticities_path=m._elasticities.attrs['source_path'],
                 elasticities_sha256=m._elasticities.attrs['source_sha256'],

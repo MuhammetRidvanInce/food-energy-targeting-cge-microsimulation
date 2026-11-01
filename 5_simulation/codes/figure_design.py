@@ -107,7 +107,7 @@ def fig1_framework():
     t2 = tab('Table2_main_macro_results').set_index('policy')
     pmt = json.loads((OUT/'diagnostics/pmt_design.json').read_text(encoding='utf-8'))
     cal = json.loads((OUT/'diagnostics/micro_calibration.json').read_text(encoding='utf-8'))
-    run = json.loads((OUT/'diagnostics/publication_run_summary.json').read_text(encoding='utf-8'))
+    run = json.loads((OUT/'diagnostics/run_manifest.json').read_text(encoding='utf-8'))
     grid = tab('S4_error_grid_draws', True)
     fig = plt.figure(figsize=(DOUBLE, 3.5))
     ax = fig.add_axes([0, 0, 1, 1]); ax.set(xlim=(0, 100), ylim=(0, 60)); ax.axis('off')
@@ -142,12 +142,12 @@ def fig1_framework():
     # Core models
     box(27.4, 25.5, 25.6, 20.5, 'Computable general equilibrium',
         ['CES value added · Leontief inputs', 'Armington imports · CET exports',
-         '192 sector-specific elasticities', 'Wage numéraire · fixed foreign saving',
+         'Nested CES: food · energy · other', 'Wage numéraire · fixed foreign saving',
          'Savings-driven investment', 'Net cost: Sg(shock) − Sg(policy)',
          '= 0.5% of benchmark GDP'], navy, title_size=7.2)
     box(57.0, 25.5, 24.0, 20.5, 'Household microsimulation',
         ['Quintile prices and factor returns', 'applied to each household',
-         'Own Cobb–Douglas cost-of-living', 'index (IPF-reconciled baskets)',
+         'Own nested-CES cost-of-living', 'index (IPF-reconciled baskets)',
          'Recipient selection within', 'quintiles (exact person weights)'], navy, title_size=7.2)
     box(85.0, 25.5, 14.4, 20.5, 'Outcomes',
         ['Fixed real poverty line', 'FGT0 · FGT1 · FGT2', 'Money-metric EV', 'Gini · loser shares',
@@ -512,6 +512,9 @@ GROUPS_S1 = [
     ('Behavioural parameters', [('low_trade_elasticity', 'Armington/CET −25%'), ('high_trade_elasticity', 'Armington/CET +25%'),
                                 ('low_factor_elasticity', 'Factor substitution −25%'),
                                 ('high_factor_elasticity', 'Factor substitution +25%')]),
+    ('Consumption preferences', [('consumption_CD','Cobb–Douglas'),('consumption_flat_CES2','Flat CES: elasticity 2'),
+                                ('upper_substitution_050','Upper-nest elasticity 0.50'),('upper_substitution_085','Upper-nest elasticity 0.85'),
+                                ('low_within_substitution','Within-nest elasticities ×0.5'),('high_within_substitution','Within-nest elasticities ×2')]),
     ('Programme design and closure', [('zero_admin', 'No administrative cost'), ('high_admin', 'Administrative cost 10%'),
                                       ('energy_support_only', 'Price support on energy only'),
                                       ('cash_saving_10pct', '10% of cash saved'),
@@ -520,7 +523,7 @@ GROUPS_S1 = [
 
 def figS1_robustness():
     s = tab('S1_configuration_results', True).pivot(index='case', columns='policy', values='fgt1_pct')
-    fig, (a, b) = plt.subplots(1, 2, figsize=(DOUBLE, 4.1), sharey=True,
+    fig, (a, b) = plt.subplots(1, 2, figsize=(DOUBLE, 5.5), sharey=True,
                                gridspec_kw=dict(width_ratios=[1.6, 1], wspace=.08))
     y, ticks, labels, heads = 0, [], [], []
     for gname, items in GROUPS_S1:
@@ -551,10 +554,10 @@ def figS1_robustness():
     b.grid(axis='x', zorder=0); b.tick_params(axis='y', length=0)
     panel(b, 'b', 'Targeting potential captured by PMT')
     save(fig, 'FigS1_robustness',
-         'Robustness of the policy comparison across seventeen configurations, each solved as a separate equal-net-cost '
+         f'Robustness of the policy comparison across {len(s)} configurations, each solved as a separate equal-net-cost '
          'equilibrium against its own same-shock no-policy reference. (a) FGT1 of perfect targeting, PMT and price support '
          'relative to universal cash. (b) PMT gain over universal cash as a share of the gain from perfect targeting. '
-         'The full four-policy ranking (perfect targeting, PMT, universal cash, price support) holds in every configuration.',
+         'The complete policy rankings are reported in the accompanying numerical tables.',
          True)
 
 

@@ -1,78 +1,46 @@
-# Food–energy targeting: CGE–microsimulation and coverage design
+# Nested-CES food–energy targeting replication package
 
-Analysis companion for **The Poverty–Coverage Trade-off under Food and Energy Shocks: Targeting and Pareto-Efficient Policy Design through CGE–Microsimulation**, by Muhammet Rıdvan İnce (Kocaeli University; ORCID [0000-0003-2050-2545](https://orcid.org/0000-0003-2050-2545)).
+This repository accompanies **The Poverty–Coverage Trade-off under Food and Energy Shocks: Targeting and Pareto-Efficient Policy Design through CGE–Microsimulation**, by Muhammet Rıdvan İnce (Kocaeli University), updated on 1 November 2026. Version 2.0.0 contains the nested-CES model, current simulations, public aggregate inputs and aggregate results. The earlier CD implementation remains available in [the previous commit](https://github.com/MuhammetRidvanInce/food-energy-targeting-cge-microsimulation/tree/885d68721773897caa0da46bc25f38654db930ba).
 
-The model links a 64-sector Turkish social accounting matrix with five income groups to household microsimulation. Equal-net-cost comparisons of perfect targeting, out-of-fold PMT, universal cash, and price support are followed by coverage optimisation and epsilon-constraint Pareto analysis. Monetary equilibrium calculations use trillion TRY internally; the macro-model public API uses thousand TRY. Survey income retains its annual survey-year units. See the code and supplementary variable descriptions for the conversion bridge.
+## Analytical specification
 
-## Contents
+The 2023 Turkish social accounting matrix has 64 sectors and five household groups. Household consumption uses food, energy and other-goods nests, with upper-nest elasticity 0.25 and within-nest elasticities 0.50, 0.40 and 0.50. The main import-price shock is food +20% and energy +40%. Four support rules have an identical net fiscal cost of 0.5% of benchmark GDP. The simulation covers instrument comparisons, targeting-error and recipient-composition experiments, PMT coverage choice, epsilon-constraint solutions and 23 structural/preference configurations.
 
-| Directory | Analysis |
-|---|---|
-| `1_input_output` | Supply/use transformation to industry input–output accounts; public statistical inputs and notebook |
-| `2_social_accounting_matrix` | Construction of the 73-account SAM and institutional direct-tax bridge |
-| `3_household_groups` | Five-group household split; code and aggregate outputs only |
-| `4_cge_model` | Calibrated 78-account, 64-sector, five-household-group CGE engine and selected elasticities |
-| `5_simulation` | Policy comparisons, targeting errors, PMT-score degradation, robustness, coverage search, and aggregate results |
-| `publication_tables` | Plain English main tables 1–5 and supplementary tables S1–S18; each workbook includes variable descriptions |
-| `tools` | Portable notebook execution, aggregate-figure regeneration, public-file checks and model smoke tests |
+## Contents and dependencies
 
-**No household, person, or consumption microdata are included.** No individual predicted scores, recipient masks, record-level outcomes, executed notebook cell outputs, manuscripts, or cover letters are distributed. Public figure inputs are binned/aggregated statistics. The macro SAM contains five representative household groups rather than individual records.
+Stages 1–3 provide the unchanged English upstream construction workflow and public aggregate inputs. Stage 4 contains the current nested-CES model and calibration. Stage 5 contains the current analysis and aggregate outputs. These upstream inputs reproduce the same numeric SAM used in the local CES analysis. Analysis uses NumPy, pandas, SciPy, scikit-learn, Pyomo, Matplotlib and openpyxl; see requirements.txt. Install IPOPT separately and make it available on PATH. The study environment used Python 3.14.3 and IPOPT 3.14.19.
 
-## Installation
+The public files permit a macro-model benchmark check:
 
-Use a recent Python environment and install `requirements.txt`. The numerical results were obtained with Python 3.14.3, NumPy 2.4.3, pandas 3.0.1, SciPy 1.17.1, scikit-learn 1.8.0, Pyomo 6.10.0, and IPOPT 3.14.19. Exact replication is best attempted with these versions. Workbook export in the public notebooks uses XlsxWriter; this changes workbook packaging and cached formulas, while keeping the scientific calculations and values.
+```sh
+python 4_cge_model/codes/cge_model.py --self-check
+```
 
-Install the [IPOPT solver](https://coin-or.github.io/Ipopt/) separately and make its executable available on `PATH`. On conda-forge it is available as `ipopt`. The model also accepts `--solver-executable` when invoked directly. The figure and stored-result checks do not require a solver or confidential data.
+Full household replication additionally requires independently authorised access to the 2024 TurkStat Household Budget Survey. Set the environment variable `HBS_DATA_DIR` to an external authorised data directory containing the original files `hane_cd_2024.csv`, `fert_cd_2024.csv` and `tuketim_cd_2024.csv`; stage 3 also requires `hbs_madde_tanim.csv`. Keep the restricted directory outside this repository. Provider field names remain unchanged for compatibility. The repository contains no such records, household scores, receipt masks, or record-level results. Its `.gitignore` also excludes restricted files and record-level caches.
 
-```bash
-python -m pip install -r requirements.txt
+```sh
+python 5_simulation/codes/run_ces_pipeline.py
+python 5_simulation/codes/validate_coverage_publication.py
+```
+
+The pipeline can take several hours and overwrites generated aggregate outputs. Use a fresh checkout when reproducing results. The retained JSON provenance records describe the original analytical run; translated public inputs have their own hashes in PACKAGE_MANIFEST.json. Re-running generates new provenance for the replication copy. Monetary calculations in stage 5 use trillion TRY; the stand-alone macro-model public API uses thousand TRY. Survey income retains annual survey-year units.
+
+The following checks and figure rendering use only public aggregate inputs:
+
+```sh
 python tools/validate_public_release.py
 python tools/render_public_figures.py
 python tools/smoke_test.py
 ```
 
-## Reconstructing the accounts
+With authorised external microdata, `python tools/smoke_test.py --with-microdata` additionally re-solves the four main policies and compares their FGT measures against stored CES results. The stages 1–3 notebooks can be executed without saving cell outputs using `python tools/run_preparation.py 1` (or 2 or 3); stage 3 requires the external survey directory.
 
-```bash
-python tools/run_preparation.py 1
-python tools/run_preparation.py 2
-```
+## Results and numbering
 
-Repository documentation, notebooks, code comments and public workbook labels are in English. Original HBS field identifiers and source filenames remain unchanged for authorised-data compatibility. The public Excel exporter uses the Python-computed formula values as caches; Excel can recalculate the formulas when opened. Raw public inputs are checked by hashes, while regenerated intermediate workbooks are checked by accounting identities and numerical comparisons. Historical calibrated macro inputs in stages 4 and 5 are retained as the fixed publication benchmark.
+At the main coverage rule, FGT1 is 7.220857% for perfect targeting, 7.343969% for PMT, 7.731658% for universal cash and 7.835895% for price support. PMT minus universal cash is −0.387688 percentage points. The minimum is approximately 4.305727% coverage and 6.681388% FGT1. Designs retaining 75% and 50% of the maximum gain reach 18.673048% and 43.164008% coverage, respectively.
 
-The household split requires authorised 2024 TurkStat HBS data, including the item dictionary. Set `HBS_DATA_DIR` to an external directory containing the filenames listed in `3_household_groups/datas/RESTRICTED_DATA.md`. Do not commit that directory or any record-level derivative. Then run:
+The article tables 1–5 are editorial presentations of these underlying results. The `publication_tables` folder provides the main tables and supplementary tables S1–S19 in English, with Data and Variable Descriptions sheets. Internal CSV names retain their computational names; figures 1–7/S1–S7 follow the article's numbering. Source and access information for public statistical inputs is in DATA_SOURCES.md. The consumption-preference calibration and source URLs are also in household_preferences.json and Table S19.
 
-```bash
-python tools/run_preparation.py 3
-python tools/smoke_test.py --with-microdata
-```
+## Funding and contact
 
-The first command writes aggregate five-group accounts. The smoke test compares the four main policy FGT measures against the stored publication results. It reads confidential records into memory but writes only aggregate calibration diagnostics.
-
-## Full simulation and coverage extension
-
-With IPOPT and authorised microdata available, run the following in sequence from the repository root. These commands overwrite generated aggregate outputs, so use a fresh checkout if you want to retain an untouched reference release.
-
-```bash
-python 5_simulation/codes/run_simulations.py
-python 5_simulation/codes/income_diagnostics.py
-python 5_simulation/codes/figure_profiles.py
-python 5_simulation/codes/pmt_coverage_sensitivity.py
-python 5_simulation/codes/pmt_coverage_optimization.py
-python 5_simulation/codes/pmt_coverage_competing_minima.py
-python 5_simulation/codes/summarize_pmt_coverage_optimization.py
-python 5_simulation/codes/pmt_coverage_tradeoff.py
-python 5_simulation/codes/pmt_epsilon_constraint.py
-python 5_simulation/codes/pmt_coverage_robustness.py
-python 5_simulation/codes/refine_coverage_robustness.py
-python 5_simulation/codes/coverage_publication_outputs.py
-python tools/render_public_figures.py
-```
-
-Coverage optimisation searches the original fixed PMT ranking and constant per-person payment policies. The finite evaluated Pareto set and the numerically refined optimum are distinguished in the tables. Conditional intervals hold estimated scores, selected policies, and macro calibration fixed. The original four-policy comparison uses target-population coverage close to 40%; the coverage extension applies exact population-weighted coverage thresholds.
-
-## Access, attribution and funding
-
-See `DATA_SOURCES.md` for public-data provenance and restricted-input access. The code/documentation license is MIT; third-party statistical inputs retain their originating terms. Please cite the dataset providers and the associated article when using the analysis. Repository citation metadata are in `CITATION.cff`.
-
-This research was funded by the Kocaeli University Scientific Research Projects Coordination Unit (KOÜ BAP), project ID **5665**. The funder had no role in research design, data analysis, interpretation, writing, or publication decisions.
+Kocaeli University Scientific Research Projects Coordination Unit (KOÜ BAP), project ID 5665, provided financial support. Contact: muhammet.ince@kocaeli.edu.tr. ORCID: https://orcid.org/0000-0003-2050-2545.

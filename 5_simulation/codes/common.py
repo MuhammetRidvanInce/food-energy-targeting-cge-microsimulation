@@ -30,9 +30,6 @@ def dump(path, obj):
                                default=convert), encoding='utf-8')
 
 def sha(path):
-    path = Path(path)
-    restricted = PROJECT/'restricted'
-    if path.is_relative_to(restricted):path = MICRO/path.relative_to(restricted)
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 def table(name, rows, supplementary=False):
@@ -45,7 +42,8 @@ def table(name, rows, supplementary=False):
     return df
 
 def configurations():
-    main = dict(food=.2, energy=.4, budget=.005, admin=.03, trade_scale=1.,
+    preferences=json.loads((PROJECT/'4_cge_model/datas/household_preferences.json').read_text(encoding='utf-8'))
+    main = dict(household_structure='nested',household_sigma=None,household_nest_sigmas=preferences['nested_sigmas'],food=.2, energy=.4, budget=.005, admin=.03, trade_scale=1.,
                 factor_scale=1., subsidy_sectors=FOOD+ENERGY,
                 symmetric=False, investment_closure='signed_shares', cash_saving=0.)
     changes = {
@@ -59,10 +57,11 @@ def configurations():
         'symmetric_world_prices':dict(symmetric=True),
         'fixed_negative_investment':dict(investment_closure='fixed_negative'),
         'cash_saving_10pct':dict(cash_saving=.10),
+        'consumption_CD':dict(household_structure='flat',household_sigma=1.,household_nest_sigmas=None),
+        'consumption_flat_CES2':dict(household_structure='flat',household_sigma=2.,household_nest_sigmas=None),
+        'upper_substitution_050':dict(household_nest_sigmas=dict(preferences['nested_sigmas'],upper=.5)),
+        'upper_substitution_085':dict(household_nest_sigmas=dict(preferences['nested_sigmas'],upper=.85)),
+        'low_within_substitution':dict(household_nest_sigmas=dict(upper=.25,food=.25,energy=.2,other=.25)),
+        'high_within_substitution':dict(household_nest_sigmas=dict(upper=.25,food=1.,energy=.8,other=1.)),
     }
     return {'main':main, **{k:dict(main, **v) for k,v in changes.items()}}
-
-
-def source_key(path):
-    path=Path(path)
-    return str(path.relative_to(PROJECT)) if path.is_relative_to(PROJECT) else "restricted/"+path.name

@@ -158,15 +158,84 @@ def group_matched_receipt(micro,reference,seed):
         a+=exact_mask(w,rng.permutation(ix),np.dot(w[ix],reference[ix]))
     return a
 
+def _price_shares(prices, beta, eta):
+    """Vectorized CES dual: one price per good, one basket per household.
+
+    Empty nests have neutral unit cost and zero conditional spending shares.
+    """
+    logp=np.log(prices)
+    if abs(eta-1)<1e-8:
+        return np.exp(logp@beta),beta
+    weighted=beta*np.exp((1-eta)*logp)[:,None]
+    den=weighted.sum(axis=0)
+    positive=den>0
+    cpi=np.ones(beta.shape[1])
+    cpi[positive]=np.exp(np.log(den[positive])/(1-eta))
+    return cpi,np.divide(weighted,den[None,:],out=np.zeros_like(weighted),where=positive[None,:])
+
+
+def consumption_system(state, micro, *, homogeneous=False):
+    """Exact calibrated CES unit-expenditure index and current budget shares.
+
+    Supports the flat CES reference and the food-energy-other nested CES.
+    Each household retains its own reconciled basket at every nest.
+    """
+    g=micro['group']; beta=micro['beta']
+    if homogeneous: beta=np.asarray(state['group_beta'])[:,g]
+    ratio=np.asarray(state['price_ratios'],dtype=float)
+    if np.any(ratio<=0): raise ValueError('CES requires strictly positive purchaser prices')
+    cpi=np.empty(len(g)); current=np.zeros_like(beta)
+    nested=state.get('household_utility')=='nested_CES'
+    if nested:
+        nests=state['consumption_nests'];indices={k:[SECTORS.index(i) for i in items] for k,items in nests.items()}
+        elasticity=state['household_nest_sigmas']
+        assert set(elasticity)=={'upper',*nests}
+    else:eta=np.asarray(state['household_sigma'],dtype=float)
+    for k in range(5):
+        ix=g==k; b=beta[:,ix]
+        if nested:
+            alpha=np.array([b[ids].sum(axis=0) for ids in indices.values()])
+            prices=[];conditional=[]
+            for j,(name,ids) in enumerate(indices.items()):
+                within=np.divide(b[ids],alpha[j][None,:],out=np.zeros_like(b[ids]),where=alpha[j][None,:]>0)
+                pk,sk=_price_shares(ratio[ids,k],within,float(elasticity[name][k]))
+                prices.append(pk);conditional.append(sk)
+            pk=np.asarray(prices);eu=float(elasticity['upper'][k])
+            if abs(eu-1)<1e-8:
+                cpi[ix]=np.exp((alpha*np.log(pk)).sum(axis=0));top=alpha
+            else:
+                weighted=alpha*pk**(1-eu);den=weighted.sum(axis=0)
+                cpi[ix]=den**(1/(1-eu));top=weighted/den[None,:]
+            block=np.zeros_like(b)
+            for j,ids in enumerate(indices.values()):block[ids]=conditional[j]*top[j][None,:]
+            current[:,ix]=block
+        else:
+            cpi[ix],current[:,ix]=_price_shares(ratio[:,k],b,float(eta[k]))
+    assert np.allclose(current.sum(axis=0),1,atol=1e-12)
+    return cpi,current
+
+
+def ces_log_price_contributions(state,micro):
+    """Aumann-Shapley decomposition along a straight log-price path.
+
+    Integrate CES expenditure shares times log-price changes using 16-point
+    Gauss-Legendre quadrature; components sum to the log unit-cost index.
+    """
+    g=micro['group'];beta=micro['beta']
+    nodes,weights=np.polynomial.legendre.leggauss(16);out=np.zeros_like(beta)
+    lp=np.log(np.asarray(state['price_ratios']))
+    for t,w in zip((nodes+1)/2,weights/2):
+        partial=dict(state,price_ratios=np.exp(t*lp))
+        _,shares=consumption_system(partial,micro)
+        out+=w*shares*lp[:,g]
+    cpi,_=consumption_system(state,micro)
+    assert np.max(np.abs(out.sum(axis=0)-np.log(cpi)))<1e-10
+    return out
+
+
 def household_outcomes(state,micro,mask,*,homogeneous=False,poverty_fraction=.6):
     g=micro['group']; hw=micro['hw']; pw=micro['pw']
-    beta=micro['beta']
-    if homogeneous: beta=np.asarray(state['group_beta'])[:,g]
-    # Ratios are 64 x 5: use each household's own group's purchaser-price base.
-    ratio=np.asarray(state['price_ratios'])
-    cpi=np.ones(len(g))
-    for k in range(5):
-        ix=g==k; cpi[ix]=np.exp(np.log(ratio[:,k])@beta[:,ix])
+    cpi,current_shares=consumption_system(state,micro,homogeneous=homogeneous)
     yf=state['w']*micro['L']+state['r']*micro['K']+micro['R']*state['factor_index']
     disp=(1-micro['tax'])*yf
     budget0=disp-micro['S0']*np.asarray(state['group_income_factor'])[g]
@@ -197,7 +266,7 @@ def household_outcomes(state,micro,mask,*,homogeneous=False,poverty_fraction=.6)
     loss_cutoff=micro['B0']*(1-1e-10)
     loser=(1-mask)*(real0<loss_cutoff)+mask*(real1<loss_cutoff)
     # Aggregate post-transfer household demand is measured against the CGE basket.
-    inferred=np.column_stack([(beta[:,g==k]*(budget[g==k]*hw[g==k])[None,:]).sum(axis=1) for k in range(5)])
+    inferred=np.column_stack([(current_shares[:,g==k]*(budget[g==k]*hw[g==k])[None,:]).sum(axis=1) for k in range(5)])
     macro_exp=np.asarray(state['consumption_expenditure'])
     demand_gap=100*np.abs(inferred-macro_exp).sum()/macro_exp.sum()
     bottom=g<2

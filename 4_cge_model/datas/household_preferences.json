@@ -1,0 +1,18 @@
+{
+  "utility": "nested_CES",
+  "structure": "nested",
+  "nested_sigmas": {
+    "upper": 0.25,
+    "food": 0.5,
+    "energy": 0.4,
+    "other": 0.5
+  },
+  "household_sigma": 2.0,
+  "scope": "Nested food-energy-other CES is the default in stages 4 and 5; the four nest elasticities are common across Q1-Q5. An explicit flat specification uses household_sigma (2 by default) only for comparison.",
+  "interpretation": "Literature-informed calibration adaptation, not a Turkish estimate. Upper 0.25, food 0.5, energy 0.4, other 0.5; EMPAX Table 3-4 and SAGE Table 9. Food mapping and three-way upper nest are study-specific adaptations.",
+  "sources": [
+    "https://www3.epa.gov/ttnecas1/models/empax_model_documentation.pdf",
+    "https://www.epa.gov/sites/default/files/2019-10/documents/sage_v1.2.0_documentation_0.pdf"
+  ],
+  "production_and_trade_elasticities": "Unchanged from the CD reference model."
+}

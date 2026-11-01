@@ -6,7 +6,7 @@ associated retention constraints. Phase-one results remain unchanged on disk.
 """
 import os
 for k in ('OPENBLAS_NUM_THREADS','OMP_NUM_THREADS','MKL_NUM_THREADS'):os.environ[k]='1'
-import json,time
+import json,time,argparse
 from pathlib import Path
 import numpy as np
 import pandas as pd
@@ -17,10 +17,14 @@ import policy_model as pm
 import micro_simulation as ms
 
 def main():
+    ap=argparse.ArgumentParser();ap.add_argument('--only',default='all');args=ap.parse_args()
+    if args.only=='all':
+        from parallel_coverage_refinement import main as parallel_main
+        return parallel_main()
     start=time.time();out=cm.OUT
     source=out/'diagnostics/pmt_coverage_robustness.json'
     prior=json.loads(source.read_text(encoding='utf-8'))
-    assert prior['status']=='complete' and prior['completed_case_count']==20
+    assert prior['status']=='complete' and prior['completed_case_count']==len(cm.configurations())+3
     current=out/'diagnostics/pmt_coverage_robustness_refined.json'
     source_sha=cm.sha(source);code_sha=cm.sha(Path(__file__))
     checkpoint=json.loads(current.read_text(encoding='utf-8')) if current.exists() else {}
@@ -33,7 +37,9 @@ def main():
     micro,h,f=ms.prepare_micro(base0);_,pred,_,_=ms.fit_pmt(micro,h,f);ms.dump=olddump
     pop=float(micro['pw'].sum());poor=micro['income']/micro['equiv']<micro['poverty_line'];poorpop=micro['pw'][poor].sum()
     star=json.loads((out/'diagnostics/pmt_coverage_optimization_final.json').read_text(encoding='utf-8'))['optimum']['coverage_pct']/100
+    preliminary=json.loads((out/'diagnostics/pmt_coverage_optimization.json').read_text(encoding='utf-8'))['optimum']['coverage_pct']/100
     for name,original in prior['cases'].items():
+        if args.only!='all' and name!=args.only:continue
         if name in cases:continue
         cfg=original['configuration'];seed=original['seed'];print('Refining',name,flush=True)
         base=base0 if cfg==cm.configurations()['main'] else pm.build(cfg)
@@ -64,7 +70,7 @@ def main():
             else:rows.append(row)
             return row
         scale=cfg['budget']/.005
-        for q in [star*scale,.03954934*scale]:evaluate(min(.999,max(.001,q)))
+        for q in [star*scale,preliminary*scale]:evaluate(min(.999,max(.001,q)))
         best=min(cache.values(),key=lambda r:r['fgt1_pct'])
         if best['fgt1_pct']<original['numerical_minimum']['fgt1_pct']-1e-8 and name!='main':
             q=best['coverage_pct']/100
@@ -92,7 +98,8 @@ def main():
         pd.DataFrame([r for c in cases.values() for r in c['selected']]).to_csv(out/'tables/PMT_coverage_robustness_refined_summary.csv',index=False,float_format='%.12g')
         print(f"  {best['coverage_pct']:.5f}% / {best['fgt1_pct']:.8f}; {len(checks)} new solves",flush=True)
     # Identical cash-policy specifications must have matching achievable minima.
-    assert abs(cases['main']['numerical_minimum']['fgt1_pct']-cases['energy_support_only']['numerical_minimum']['fgt1_pct'])<1e-6
+    if 'main' in cases and 'energy_support_only' in cases:
+        assert abs(cases['main']['numerical_minimum']['fgt1_pct']-cases['energy_support_only']['numerical_minimum']['fgt1_pct'])<1e-6
     audit=json.loads(current.read_text(encoding='utf-8'));audit['status']='complete';audit['completed_case_count']=len(cases)
     audit['elapsed_seconds']=time.time()-start;cm.dump(current,audit)
     for rel,expected in prior['protected_hashes'].items():assert cm.sha(cm.ROOT/rel)==expected

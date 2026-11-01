@@ -20,3 +20,7 @@ Published tables, five-group SAM flows, sector results, simulated policy-level o
 
 
 Public statistical workbooks are English-labelled derivatives of the linked provider tables. Numerical cells and sector ordering are preserved; English labels do not imply an official provider translation. Original HBS filenames and field identifiers appear only in the access contract and code because authorised source records use that schema.
+
+## Consumption preferences
+
+The nested-CES consumption calibration adapts the limited-substitution specifications in RTI International's EMPAX-CGE model documentation (2008), Table 3-4, https://www3.epa.gov/ttnecas1/models/empax_model_documentation.pdf , and Marten, Schreiber and Wolverton's SAGE model documentation, version 1.2.0 (2019), Table 9, https://www.epa.gov/sites/default/files/2019-10/documents/sage_v1.2.0_documentation_0.pdf . The selected values are 0.25 across the three nests and 0.50, 0.40 and 0.50 within food, energy and other goods. These are transferred calibration assumptions; Table S19 and the preference configuration document the common values for the five household groups.

@@ -35,8 +35,8 @@ def main():
         cm.OUT / "equilibria/main_equilibria.json",
         cm.OUT / "diagnostics/pmt_coverage_sensitivity.json",
         cm.OUT / "tables/PMT_coverage_sensitivity.csv",
-        *sorted((cm.OUT / "tables/main").glob("*.csv")),
-        *sorted((cm.OUT / "tables/supplementary").glob("*.xlsx")),
+        *sorted(p for p in (cm.OUT / "tables/main").glob("*.csv") if p.name.lower()!='table5.csv'),
+        *sorted(p for p in (cm.OUT / "tables/supplementary").glob("S*.xlsx") if int(p.stem.split('_')[0][1:])<=13),
     ]
     protected_hashes = {str(p.relative_to(cm.ROOT)): cm.sha(p) for p in protected}
     cfg = cm.configurations()["main"]

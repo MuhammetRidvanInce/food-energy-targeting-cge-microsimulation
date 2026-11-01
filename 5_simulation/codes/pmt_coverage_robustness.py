@@ -19,6 +19,9 @@ import policy_model as pm
 
 def main():
     ap=argparse.ArgumentParser();ap.add_argument('--only',default='all');args=ap.parse_args()
+    if args.only=='all':
+        from parallel_coverage_robustness import main as parallel_main
+        return parallel_main()
     start=time.time(); out=cm.OUT
     audit_path=out/'diagnostics/pmt_coverage_robustness.json'
     protected={str(p.relative_to(cm.ROOT)):cm.sha(p) for p in [

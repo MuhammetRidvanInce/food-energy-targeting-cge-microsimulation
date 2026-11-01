@@ -25,6 +25,12 @@ POLICY = {
     'universal_cash':'Universal cash: equal per-person payment to every represented person.',
     'price_support':'Price support: a common proportional discount on eligible household purchases, solved at the same final net fiscal cost.'}
 CASES = {
+    'consumption_CD':'Cobb-Douglas consumption (elasticity 1) in both CGE and microsimulation; all other main settings unchanged.',
+    'consumption_flat_CES2':'Single-level CES consumption with elasticity 2 in CGE and microsimulation.',
+    'upper_substitution_050':'Food-energy-other upper-nest elasticity is 0.50; within-nest elasticities retain their main values.',
+    'upper_substitution_085':'Food-energy-other upper-nest elasticity is 0.85; within-nest elasticities retain their main values.',
+    'low_within_substitution':'Within-nest elasticities are food 0.25, energy 0.20 and other 0.25; upper-nest elasticity remains 0.25.',
+    'high_within_substitution':'Within-nest elasticities are food 1.00, energy 0.80 and other 1.00; upper-nest elasticity remains 0.25.',
     'main':'Food import prices +20%; energy import prices +40%; net fiscal cost 0.5% of benchmark GDP; administration 3% of gross cash-programme spending. Uses benchmark sector elasticities, signed investment shares and full consumption of new cash.',
     'food_only':'Food import prices +20%; no energy import-price shock.',
     'energy_only':'Energy import prices +40%; no food import-price shock.',
@@ -43,7 +49,7 @@ CASES = {
     'fixed_negative_investment':'The five negative net investment quantities remain at benchmark levels; positive components absorb investment adjustment.',
     'cash_saving_10pct':'Households save 10% of new cash transfers and consume 90%.'}
 TITLES = {
-    'S1_configuration_results':('Distributional outcomes by configuration','One row per configuration–policy combination: 17 configurations × 5 shock/policy outcomes, plus one benchmark row.'),
+    'S1_configuration_results':('Distributional outcomes by configuration','One row per configuration–policy combination: each structural or consumption-preference configuration has five shock/policy outcomes, plus one common benchmark row.'),
     'S2_macro_results':('Macroeconomic and fiscal outcomes','One row per configuration–policy combination. Levels, percentage changes and indices have distinct units.'),
     'S3_sector_results':('Sector outcomes under the main policies','One row per policy–sector combination: main configuration × 4 supported policies × 64 sectors.'),
     'S4_error_grid_draws':('Targeting-error grid: individual draws','One row per recipient draw in an exclusion–leakage cell: 427 feasible cells × 10 draws.'),
@@ -52,7 +58,7 @@ TITLES = {
     'S7_micro_sensitivity':('Poverty-line and expenditure-basket sensitivity','One row per poverty-line–basket–policy combination: 3 × 2 × 4 = 24 outcomes.'),
     'S8_elasticity_assignment':('Sector elasticities and source assignments','One row per model sector. Armington, CET and CES parameters for 64 sectors give 192 benchmark parameter values.'),
     'S9_policy_rankings':('Policy rankings by configuration','One row per configuration. Four supported policies are ranked by their FGT1 outcomes within that configuration.'),
-    'S10_negative_income_diagnostic':('Negative-income boundary diagnostic','One row per flagged unsupported-shock configuration. The current output contains energy_only / shock.')}
+    'S10_negative_income_diagnostic':('Negative-income boundary diagnostic','One row per configuration with negative reconstructed household income. An empty Data sheet means no configuration was flagged; see income_boundary_check.json for the complete audit.')}
 SECTOR_NAMES = [
     'Crop and animal production, hunting and related services',
     'Forestry and logging', 'Fishing and aquaculture', 'Mining and quarrying',
@@ -170,7 +176,7 @@ def verify(path,df):
                 assert not cell.has_style and cell.comment is None and cell.data_type not in ('f','e')
     for row in wb[DOCS]:
         for c in row:
-            if isinstance(c.value,str):assert not re.search('[\u00e7\u011f\u0131\u00f6\u015f\u00fc\u00c7\u011e\u0130\u00d6\u015e\u00dc]',c.value),(path,c.value)
+            if isinstance(c.value,str):assert not re.search('[çğıöşüÇĞİÖŞÜ]',c.value),(path,c.value)
     wb.close()
 
 def derived_tables():

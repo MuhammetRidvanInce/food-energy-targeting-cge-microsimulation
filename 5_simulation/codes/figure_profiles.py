@@ -35,12 +35,8 @@ def household_detail(state, micro, mask):
     """Same arithmetic as micro_simulation.household_outcomes, kept per household."""
     g = micro['group']; pw = micro['pw']; beta = micro['beta']
     ratio = np.asarray(state['price_ratios'])
-    logp = np.zeros((len(SECTORS), len(g)))
-    for k in range(5):
-        ix = g == k
-        logp[:, ix] = np.log(ratio[:, k])[:, None]
-    contrib = beta*logp
-    cpi = np.exp(contrib.sum(axis=0))
+    cpi,current_shares = ms.consumption_system(state,micro)
+    contrib = ms.ces_log_price_contributions(state,micro)
     yf = state['w']*micro['L']+state['r']*micro['K']+micro['R']*state['factor_index']
     disp = (1-micro['tax'])*yf
     budget0 = disp-micro['S0']*np.asarray(state['group_income_factor'])[g]
@@ -60,7 +56,7 @@ def household_detail(state, micro, mask):
     return dict(cpi=cpi, budget0=budget0, cash=full*mask, ev=real-micro['B0'], gap=gap,
                 log_food=contrib[[idx[s] for s in FOOD]].sum(axis=0),
                 log_energy=contrib[[idx[s] for s in ENERGY]].sum(axis=0),
-                log_total=contrib.sum(axis=0), subsidised_share=beta[sub].sum(axis=0))
+                log_total=contrib.sum(axis=0), subsidised_share=current_shares[sub].sum(axis=0))
 
 
 def main():
@@ -190,7 +186,7 @@ def main():
                 price_support_cost_table2_trillion_tl=float(macro.loc['price_support', 'price_support_trillion_tl']),
                 cash_total_check={p: float(np.dot(hw, benefit[p])) for p in ['perfect_targeting', 'pmt', 'universal_cash']},
                 fgt1_reproduction=checks, bins=BINS, households=int(n),
-                cpi_decomposition='Log price-index contributions proportionally converted to percentage-point components; accounting decomposition of the same equilibrium',
+                cpi_decomposition='Integrated CES log-price-path contributions proportionally converted to percentage-point components; accounting decomposition of the same equilibrium',
                 histogram_display_population_pct=100*pw[plot_window].sum()/pw.sum(),
                 histogram_range=[9.,14.5],histogram_tail_folding=True,
                 score_histogram_tail_folding='below 0.1 and above 99.9 sample percentiles; end bins retain tail mass',

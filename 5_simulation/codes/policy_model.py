@@ -12,7 +12,8 @@ def build(cfg):
         sigma=(el.sigma*cfg['trade_scale']).to_dict(),
         psi=(el.psi*cfg['trade_scale']).to_dict(),
         omega=(el.omega*cfg['factor_scale']).to_dict(),
-        investment_closure=cfg['investment_closure'])
+        investment_closure=cfg['investment_closure'], household_sigma=cfg.get('household_sigma'),
+        household_structure=cfg.get('household_structure'),household_nest_sigmas=cfg.get('household_nest_sigmas'))
 
 def gdp(m):
     return pyo.value(m.factor_income+m.T-sum(m.Tdh[h] for h in m.h)-m.price_support_cost)
@@ -85,7 +86,10 @@ def snapshot(m,base,*,shares=None,cash_saving=0.,reference_sg=None,budget=0.):
         sectors.append(dict(sector=i,nace=str(base._benchmark.sectors.loc[i,'NACE']),
             output_pct=100*(v(m.Z[i])/c['Z0'][i]-1),composite_price_pct=100*(v(m.pq[i])-1),
             imports_volume_trillion_tl=v(m.M[i]),exports_volume_trillion_tl=v(m.E[i])))
-    return dict(w=v(m.w),r=v(m.r),factor_index=v(m.factor_income)/c['X0'].sum(),
+    return dict(household_utility='nested_CES' if m._household_structure=='nested' else 'CES',
+        household_sigma=[m._household_sigma[h] for h in GROUPS] if m._household_structure=='flat' else None,
+        household_nest_sigmas={k:[values[h] for h in GROUPS] for k,values in m._household_nest_sigmas.items()},
+        consumption_nests=m._consumption_nests,w=v(m.w),r=v(m.r),factor_index=v(m.factor_income)/c['X0'].sum(),
         group_income_factor=[v(m.Y_regular[h])/c['Y0'][h] for h in GROUPS],
         group_budget=[v(m.Bh[h]) for h in GROUPS],group_beta=c['beta'].to_numpy(),
         price_ratios=ratio,consumption_expenditure=np.array([[v(m.pch[i,h]*m.Ch[i,h]) for h in GROUPS] for i in SECTORS]),

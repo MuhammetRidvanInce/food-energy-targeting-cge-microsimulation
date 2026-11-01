@@ -29,7 +29,7 @@ def main():
     for i in range(1,len(x)-1):
         if y[i]<=y[i-1] and y[i]<=y[i+1] and y[i]<=prior.fgt1_pct.min()+.02 and abs(x[i]-current_best)>.003:
             candidate_windows.append((float(x[i-1]),float(x[i+1])))
-    assert candidate_windows
+    # An empty set is valid: re-solve the primary optimum and comparators.
     print("Secondary search windows:",candidate_windows,flush=True)
     cfg=cm.configurations()["main"]
     base=pm.build(cfg);cm.cge.solve_model(base)

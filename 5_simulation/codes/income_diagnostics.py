@@ -5,7 +5,7 @@ or breaking the benchmark-to-group reconciliation. No household identifiers leav
 """
 from common import *
 from policy_model import build,shock_model,snapshot
-from micro_simulation import prepare_micro,household_outcomes
+from micro_simulation import prepare_micro,household_outcomes,consumption_system
 
 def main():
     df=load_supplementary('S1_configuration_results')
@@ -18,9 +18,7 @@ def main():
             assert row.policy=='shock', 'A policy case requires a separate recipient-state audit'
             b=build(cfgs[row['case']]);cge.solve_model(b);sh=shock_model(b,cfgs[row['case']])
             st=snapshot(sh,b);g=micro['group'];w=micro['pw'];ratio=np.asarray(st['price_ratios'])
-            cpi=np.ones(len(g))
-            for k in range(5):
-                ix=g==k;cpi[ix]=np.exp(np.log(ratio[:,k])@micro['beta'][:,ix])
+            cpi,_=consumption_system(st,micro)
             disp=(1-micro['tax'])*(st['w']*micro['L']+st['r']*micro['K']+micro['R']*st['factor_index'])
             eq=disp/micro['income_scale']/micro['equiv']/cpi
             z=micro['poverty_line'];negative=eq<0
@@ -34,10 +32,14 @@ def main():
                 poverty_line_hbs_tl=z,original_fgt1_pct=original,zero_floor_fgt1_pct=floored,
                 zero_floor_difference_pp=floored-original,
                 note='Factor-indexed micro reconciliation residual; all policy cases retain nonnegative disposable income'))
-    table('S10_negative_income_diagnostic',rows,True)
+    columns=['case','policy','negative_households','affected_population_pct',
+             'minimum_real_equivalent_income_hbs_tl','poverty_line_hbs_tl',
+             'original_fgt1_pct','zero_floor_fgt1_pct','zero_floor_difference_pp','note']
+    table('S10_negative_income_diagnostic',pd.DataFrame(rows,columns=columns),True)
     dump(OUT/'diagnostics/income_boundary_check.json',dict(flagged_cases=rows,
         policy_cases_with_negative_income=int(((df.policy!='shock')&(df.negative_income_households>0)).sum()),
-        interpretation='Zero-floor sensitivity is reported separately; original accounting-consistent incomes remain in the analysis'))
+        interpretation=('No negative reconstructed household income in any simulated configuration; the diagnostic workbook has no flagged rows.' if not rows else
+                        'Zero-floor sensitivity is reported separately; original accounting-consistent incomes remain in the analysis')))
     print(pd.DataFrame(rows).to_string(index=False))
 
 if __name__=='__main__':main()
